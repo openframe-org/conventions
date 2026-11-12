@@ -34,3 +34,11 @@ export function findAccountByIdentifier(accounts: Account[], identifier: string)
 
   return null;
 }
+
+export async function loadAccountRoles(): Promise<readonly AccountRole[]> {
+  return Promise.resolve(ACCOUNT_ROLES);
+}
+
+export function startLoadingAccountRoles(): void {
+  void loadAccountRoles();
+}

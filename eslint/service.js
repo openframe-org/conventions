@@ -1,4 +1,4 @@
-import { createBaseConfiguration, TYPESCRIPT_FILES } from "./base.js";
+import { createBaseConfiguration } from "./base.js";
 import { barrelFiles, general, vanillaNodeImports } from "./restrictedSyntax.js";
 
 /**
@@ -8,18 +8,11 @@ import { barrelFiles, general, vanillaNodeImports } from "./restrictedSyntax.js"
  * @returns {import("eslint").Linter.Config[]}
  */
 export function createServiceConfiguration({ tsconfigRootDir, project }) {
-  return [
-    ...createBaseConfiguration({
-      tsconfigRootDir,
-      project,
-      restrictedSyntax: [...general, ...vanillaNodeImports, ...barrelFiles],
-      pluginConfigurations: [],
-      allowPascalCaseFunctions: false,
-    }),
-    {
-      name: "openframe/service",
-      files: TYPESCRIPT_FILES,
-      rules: { "@typescript-eslint/no-empty-function": "error" },
-    },
-  ];
+  return createBaseConfiguration({
+    tsconfigRootDir,
+    project,
+    restrictedSyntax: [...general, ...vanillaNodeImports, ...barrelFiles],
+    pluginConfigurations: [],
+    allowPascalCaseFunctions: false,
+  });
 }

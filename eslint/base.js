@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 import { createNamingConventionOptions } from "./namingConvention.js";
 
 export const TYPESCRIPT_FILES = ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"];
-export const TEST_FILES = ["**/*.test.*", "**/*.spec.*", "**/tests/**", "**/__tests__/**"];
+export const TEST_FILES = ["**/*.test.*", "**/*.spec.*", "**/tests/**", "**/__tests__/**", "**/.playwright/**"];
 export const CONFIGURATION_FILES = ["**/*.config.{js,mjs,cjs,ts,mts,cts}"];
 
 /**
@@ -17,7 +17,9 @@ export const CONFIGURATION_FILES = ["**/*.config.{js,mjs,cjs,ts,mts,cts}"];
  */
 
 /**
- * The rules shared by every preset.
+ * The rules shared by every preset. They come from three places, in this order: the standard presets (ESLint's
+ * `recommended` and typescript-eslint's `recommendedTypeChecked`), the rules of Google's own linter and style guide,
+ * and the Openframe rules written in CONVENTIONS.md.
  *
  * @param {PresetParams & {
  *   restrictedSyntax: { selector: string, message: string }[],
@@ -44,58 +46,69 @@ export function createBaseConfiguration({
     // Formatting belongs to Prettier: this switches off every rule that would disagree with it.
     prettier,
     {
-      name: "openframe/all-files",
+      // What Google's linter (gts) enables on top of the presets, and the rules of Google's style guide.
+      name: "openframe/google",
       rules: {
-        "no-restricted-syntax": ["error", ...restrictedSyntax],
-        "no-console": "error",
+        "block-scoped-var": "error",
+        // Google's guide allows `== null`, which covers both null and undefined.
         eqeqeq: ["error", "always", { null: "ignore" }],
         "no-var": "error",
         "prefer-const": "error",
         "prefer-arrow-callback": "error",
-        "prefer-template": "error",
+        "no-restricted-properties": [
+          "error",
+          { object: "describe", property: "only" },
+          { object: "it", property: "only" },
+        ],
         curly: ["error", "all"],
+        "import-x/no-default-export": "error",
+      },
+    },
+    {
+      name: "openframe/google-typescript",
+      files: TYPESCRIPT_FILES,
+      rules: {
+        // Members are public by default: the keyword is never written.
+        "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "no-public" }],
+        "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
+        "@typescript-eslint/consistent-type-assertions": [
+          "error",
+          { assertionStyle: "as", objectLiteralTypeAssertions: "never" },
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          ...createNamingConventionOptions({ allowPascalCaseFunctions }),
+        ],
+      },
+    },
+    {
+      name: "openframe/all-files",
+      rules: {
+        "no-restricted-syntax": ["error", ...restrictedSyntax],
+        "no-console": "error",
         "no-nested-ternary": "error",
         "no-else-return": "error",
+        "prefer-template": "error",
         "no-shadow": "error",
         "max-classes-per-file": ["error", 1],
         // No abbreviations: a name is a word, never a letter. `x` and `y` are coordinates, not abbreviations.
         "id-length": ["error", { min: 2, exceptions: ["_", "x", "y"], properties: "never" }],
-        "id-denylist": ["error", "obj", "arr", "str", "num", "val", "tmp", "idx", "len", "cb", "el", "evt", "btn"],
-        "import-x/no-default-export": "error",
         "import-x/no-duplicates": "error",
-        "import-x/order": "error",
       },
     },
     {
       name: "openframe/typescript",
       files: TYPESCRIPT_FILES,
       rules: {
-        // Members are public by default: the keyword is never written.
-        "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "no-public" }],
         // The backend runs on vanilla Node, which strips types and cannot compile a parameter property.
         "@typescript-eslint/parameter-properties": "error",
         // The backend runs on vanilla Node, which keeps every import that is not marked as a type.
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/consistent-type-exports": "error",
         "@typescript-eslint/no-import-type-side-effects": "error",
-        "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
-        "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
-        "@typescript-eslint/consistent-type-assertions": [
-          "error",
-          { assertionStyle: "as", objectLiteralTypeAssertions: "never" },
-        ],
         "@typescript-eslint/no-non-null-assertion": "error",
-        "@typescript-eslint/naming-convention": [
-          "error",
-          ...createNamingConventionOptions({ allowPascalCaseFunctions }),
-        ],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrors: "none", ignoreRestSiblings: true },
-        ],
-        "@typescript-eslint/return-await": ["error", "in-try-catch"],
         // Removing `async` from a function changes how it fails: it throws instead of returning a rejected promise.
         "@typescript-eslint/require-await": "off",
       },

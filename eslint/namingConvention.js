@@ -12,7 +12,7 @@ export function createNamingConventionOptions({ allowPascalCaseFunctions }) {
     { selector: "variable", format: [...functionFormats, "UPPER_CASE"] },
     { selector: "function", format: functionFormats },
     { selector: "parameter", format: functionFormats },
-    // An unused parameter or variable is marked with a leading underscore.
+    // An unused name is reported by `no-unused-vars`, whatever its spelling: once is enough.
     { selector: ["parameter", "variable"], modifiers: ["unused"], format: ["camelCase"], leadingUnderscore: "allow" },
     // A destructured name is decided by the shape it is taken from.
     { selector: ["parameter", "variable"], modifiers: ["destructured"], format: null },

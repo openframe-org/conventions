@@ -4,7 +4,7 @@ import jsxA11y from "eslint-plugin-jsx-a11y";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 
-import { createBaseConfiguration, TYPESCRIPT_FILES } from "./base.js";
+import { createBaseConfiguration } from "./base.js";
 import { barrelFiles, general } from "./restrictedSyntax.js";
 
 /**
@@ -36,14 +36,6 @@ export function createReactConfiguration({ tsconfigRootDir, project }) {
       ],
       allowPascalCaseFunctions: true,
     }),
-    {
-      name: "openframe/react-typescript",
-      files: TYPESCRIPT_FILES,
-      rules: {
-        // An event handler may be asynchronous: React ignores the promise it returns.
-        "@typescript-eslint/no-misused-promises": ["error", { checksVoidReturn: { attributes: false } }],
-      },
-    },
     {
       // Storybook loads stories and its own configuration through the default export.
       name: "openframe/storybook",

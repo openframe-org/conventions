@@ -4,10 +4,6 @@
   "description": "Openframe's code conventions: ESLint, Prettier and TypeScript configuration, with the written conventions and guidelines",
   "license": "UNLICENSED",
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/openframe-org/conventions.git"
-  },
   "engines": {
     "node": ">=24"
   },
@@ -34,7 +30,7 @@
   },
   "prettier": "./prettier/index.js",
   "publishConfig": {
-    "access": "restricted",
+    "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {

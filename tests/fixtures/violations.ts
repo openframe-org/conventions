@@ -37,4 +37,16 @@ export function logRoles(): void {
   }
 }
 
+export async function loadRoles(): Promise<string[]> {
+  return Promise.resolve([...ACCOUNT_ROLES]);
+}
+
+export function startLoadingRoles(_unusedOption: string): void {
+  loadRoles();
+}
+
+export function countRoles(roles: string[]): number {
+  return roles.filter((roles) => roles.length > 0).length;
+}
+
 export default Account;

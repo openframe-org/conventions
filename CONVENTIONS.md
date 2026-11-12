@@ -11,6 +11,17 @@ We follow the [Google TypeScript Style Guide](https://google.github.io/styleguid
 to it. Where a rule here and Google's guide disagree, Google's guide wins, except for the three exceptions that
 follow.
 
+## What lint enforces
+
+The lint rules come from three places, and nothing else:
+
+1. The standard presets: ESLint's `recommended` and typescript-eslint's `recommendedTypeChecked`.
+2. Google: what its own linter enables, and the rules of its style guide that a linter can check.
+3. The Openframe rules marked _lint_ in this file.
+
+Two rules of the presets are adjusted. `require-await` is off, because removing `async` from a function changes how
+it fails. `unbound-method` is off in tests, where it misreads an assertion on a spy.
+
 ## Exceptions to Google's guide
 
 **The backend runs on vanilla Node.** Node strips the types from a file and compiles nothing, so anything that needs
@@ -35,7 +46,7 @@ quotes. _lint_
 
 - A name is descriptive and says how the value is used: `LoginPage`, `UserDetailsModal`, `PdfGeneratorService`,
   `originalConsoleMethods`, `taskIdObjects`, `getUpToDateZipFileOrEnqueue`.
-- Never abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names. _lint, for the common cases_
+- Never abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names. _lint, for one-letter names_
 - camelCase for variables, functions and methods. PascalCase for classes, types and React components.
   SCREAMING_SNAKE_CASE for global constants. _lint_
 - A function name starts with a verb and says what the function returns or does: `getUserByEmail`,
@@ -61,23 +72,31 @@ quotes. _lint_
 - A type states whether its value can be absent. Nullable code without a nullable type ends in a null-pointer error.
 - Prefer `null` to `undefined`: write `name: string | null` rather than `name?: string`, so that leaving a value out
   is a decision the code shows.
-- The shape of an object is an `interface`. _lint_
+
+## Promises
+
+- A promise is awaited or handled. One that is deliberately not awaited is marked with `void`:
+  `void queryClient.invalidateQueries({ queryKey })`. _lint_
+- An asynchronous event handler is started the same way: `onClick={() => void save()}`. _lint_
 
 ## Functions and classes
 
 - Several identifiers travel as one named object, never as positional strings:
-  `new InvoiceLoader({ customerId, invoiceId })`, with the parameter type declared as
-  `interface InvoiceLoaderParams`. No inline object types in a constructor signature; avoid them in method
-  signatures too.
+  `new InvoiceLoader({ customerId, invoiceId })`, with the parameter type declared as `InvoiceLoaderParams`. No
+  inline object types in a constructor signature; avoid them in method signatures too.
 - One class per file, the file named after it. _lint, for the count_
 - No nested ternaries: use `if`, `switch`, or a function. _lint_
 - No `reduce`: accumulate with a `for` loop, or map and then combine. _lint_
+- No `else` after a `return`. _lint_
+- No variable shadows one of an enclosing scope. _lint_
 - Always `===`, and always braces around a block. _lint_
+- A template string rather than `+` to build a string. _lint_
 
 ## Modules
 
 - Named exports only. A default export is allowed where a tool requires it: its configuration file, a Storybook
   story, a lazily loaded component. _lint_
+- A module is imported once per file. _lint_
 - No barrel files: import a value from the file that declares it. The entry point of a library is the exception.
   _lint_
 - Small helpers go in the folder's `utils.ts`, not in one file per function.
@@ -110,6 +129,10 @@ quotes. _lint_
   _lint_
 - No unused variables, functions, classes, components or files. Code that is needed later belongs in a branch or in
   the git history; failing that, mark it with `@TODO`. _lint, for variables and imports_
+- An unused name is removed, not kept behind an underscore: `[, second]` skips a position of an array and `catch {`
+  drops the error. To leave a property out of an object, use an `omit` helper or list the properties that stay.
+  _lint_
+- No `describe.only` or `it.only` left in a test file. _lint_
 
 ## Comments
 

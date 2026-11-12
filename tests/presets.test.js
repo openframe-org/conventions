@@ -18,10 +18,12 @@ const presets = [
 
 // What `violations.ts` breaks under every preset. A `no-restricted-syntax` report is named by its message.
 const violationsOfEveryPreset = [
-  "@typescript-eslint/consistent-type-definitions",
   "@typescript-eslint/explicit-member-accessibility",
   "@typescript-eslint/no-explicit-any",
+  "@typescript-eslint/no-floating-promises",
   "@typescript-eslint/no-non-null-assertion",
+  "@typescript-eslint/no-shadow",
+  "@typescript-eslint/no-unused-vars",
   "@typescript-eslint/parameter-properties",
   "id-length",
   "import-x/no-default-export",
