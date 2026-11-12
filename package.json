@@ -1,0 +1,79 @@
+{
+  "name": "@openframe-org/conventions",
+  "version": "1.0.0",
+  "description": "Openframe's code conventions: ESLint, Prettier and TypeScript configuration, with the written conventions and guidelines",
+  "license": "UNLICENSED",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openframe-org/conventions.git"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "exports": {
+    "./eslint": "./eslint/index.js",
+    "./eslint/react": "./eslint/react.js",
+    "./prettier": "./prettier/index.js",
+    "./tsconfig/service.json": "./tsconfig/service.json",
+    "./tsconfig/library.json": "./tsconfig/library.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "eslint",
+    "prettier",
+    "tsconfig",
+    "AGENTS.md",
+    "CONVENTIONS.md",
+    "GUIDELINES.md"
+  ],
+  "scripts": {
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix . && prettier --write .",
+    "test": "node --test"
+  },
+  "prettier": "./prettier/index.js",
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-import-x": "4.18.1",
+    "typescript-eslint": "8.72.2"
+  },
+  "peerDependencies": {
+    "@eslint/js": "^9.23.0 || ^10.0.0",
+    "@tanstack/eslint-plugin-query": "5.101.2",
+    "eslint": "^9.23.0 || ^10.0.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "prettier": "^3.5.0",
+    "typescript": ">=6.0.0 <6.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/eslint-plugin-query": {
+      "optional": true
+    },
+    "eslint-plugin-jsx-a11y": {
+      "optional": true
+    },
+    "eslint-plugin-react": {
+      "optional": true
+    },
+    "eslint-plugin-react-hooks": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "@tanstack/eslint-plugin-query": "5.101.2",
+    "eslint": "9.39.4",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "prettier": "3.10.0",
+    "typescript": "6.0.3"
+  }
+}
