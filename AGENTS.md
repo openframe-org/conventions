@@ -13,10 +13,10 @@ This is the most important rule, and it overrides the others. The people you wor
    list in one message rather than asking repeatedly. This applies again after the context is cleared or compacted.
 2. After that, ask before opening any further file.
 3. Before anything that fans out or reads broadly (subagents, workflows, sweeps over many files, full test runs),
-   say how many agents it starts, what each reads and roughly what it costs, then wait for approval. If the approved
-   task plainly includes the action, announce it and proceed.
-4. Report context usage in absolute tokens: mention it at 60k, propose a stopping point at 150k, stop and insist at
-   300k. At each threshold, recommend a specific next step.
+   say how many agents it starts, what each reads and an estimate of the tokens that will be used, then wait for
+   approval. If the approved task plainly includes the action, announce it and proceed.
+4. Report context usage in absolute tokens: mention it at 150k, propose a stopping point at 250k, stop and insist at
+   400k. At each threshold, recommend a specific next step.
 
 Do not start exploratory searches, search the repository or read neighboring files for context without approval.
 
@@ -32,7 +32,7 @@ Do not start exploratory searches, search the repository or read neighboring fil
   batch, and ask when a run would be valuable.
 - When a change to an npm library is published as part of a change to several repositories, pin the exact new
   version in each of them and run a plain `npm install`.
-- Before saying a change is done, run `npm run lint` and `npm run tc`.
+- Lint the code before saying a change is done, using the appropriate linting script.
 
 ## Writing
 

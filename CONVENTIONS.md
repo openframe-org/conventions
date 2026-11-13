@@ -1,58 +1,47 @@
 # Conventions
 
-The rules a change must follow. How we work, and the calls that need judgement, are in
-[GUIDELINES.md](./GUIDELINES.md).
+We follow the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html). This file lists only
+what Openframe adds to it and what it leaves out, with the reason. On anything it does not mention, Google's guide
+applies. How we work is in [GUIDELINES.md](./GUIDELINES.md).
 
-A rule marked _lint_ is enforced by the configuration in this repository. The others are enforced in review.
-
-## Baseline
-
-We follow the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html). The rules below add
-to it. Where a rule here and Google's guide disagree, Google's guide wins, except for the three exceptions that
-follow.
-
-## What lint enforces
-
-The lint rules come from three places, and nothing else:
-
-1. The standard presets: ESLint's `recommended` and typescript-eslint's `recommendedTypeChecked`.
-2. Google: what its own linter enables, and the rules of its style guide that a linter can check.
-3. The Openframe rules marked _lint_ in this file.
-
-Two rules of the presets are adjusted. `require-await` is off, because removing `async` from a function changes how
-it fails. `unbound-method` is off in tests, where it misreads an assertion on a spy.
+Lint enforces what it can, with ESLint's `recommended` preset, typescript-eslint's `recommendedTypeChecked` preset and
+the rules of Google's own linter.
 
 ## Exceptions to Google's guide
 
-**The backend runs on vanilla Node.** Node strips the types from a file and compiles nothing, so anything that needs
-compiling cannot be used. Google allows enums and encourages parameter properties; we use neither.
+**All non-frontend code runs on vanilla Node** which is why we enforce the following rules, some of which conflict
+with the Google rules.
 
-- No enums. Declare the values in an `as const` array and derive the union type from it. _lint_
-- No parameter properties: declare the field and assign it in the constructor. _lint_
-- No namespaces. _lint_
-- An import that is only used as a type is written `import type`. _lint_
-- In a backend service, a relative import carries its `.ts` extension. _lint_
+- No enums. Declare the values in an `as const` array and derive the union type from it.
+- No parameter properties: declare the field and assign it in the constructor.
+- An import that is only used as a type is written `import type`.
+- In a backend service, a relative import carries its `.ts` extension.
+- No `private`, no `protected`, no `#private`. A test must be able to mock any member.
 
-**Every class member is public.** A test must be able to mock any member.
+We use the Prettier defaults at 120 columns instead of the Google 80 columns. It's just more comfortable.
 
-- No `private`, no `protected`, no `#private`. _lint_
-- Following Google, the `public` keyword is never written. _lint_
-- A static factory may be the intended way to create an instance, but the constructor stays public.
+We also differ on these points:
 
-**Formatting is Prettier's.** We use Prettier's defaults at 120 columns, where Google asks for 80 columns and single
-quotes. _lint_
+- `null` rather than `undefined`: write `name: string | null`, not `name?: string`. Leaving a value out has to be
+  explicit, which prevents bugs.
+- A type alias rather than an `interface` for the shape of an object. A type alias is easier to extend and combine.
+- Double quotes, the Prettier default, rather than single quotes.
+- A default export where a tool requires it: its configuration file, a Storybook story, a lazily loaded component.
+
+## Preset rules we switch off
+
+- `require-await`: removing `async` from a function changes how it fails.
+- `unbound-method`, in tests only: it misreads an assertion on a spy.
 
 ## Naming
 
-- A name is descriptive and says how the value is used: `LoginPage`, `UserDetailsModal`, `PdfGeneratorService`,
-  `originalConsoleMethods`, `taskIdObjects`, `getUpToDateZipFileOrEnqueue`.
-- Never abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names. _lint, for one-letter names_
-- camelCase for variables, functions and methods. PascalCase for classes, types and React components.
-  SCREAMING_SNAKE_CASE for global constants. _lint_
+- **Never** abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names.
+- `camelCase` for TypeScript, `snake_case` for Python variables, functions and methods. `PascalCase` for classes,
+  types and React components. `SCREAMING_SNAKE_CASE` for global constants.
 - A function name starts with a verb and says what the function returns or does: `getUserByEmail`,
   `assembleInvoiceLines`. Not a noun phrase, not a bare adjective.
 - A function name never ends in a bare preposition: no `xxxOf()`, `xxxFor()`, `xxxTo()`. Name what follows it:
-  `sessionCookieForHeaders(headers)`, not `sessionCookieOf(headers)`. _lint_
+  `sessionCookieForHeaders(headers)`, not `sessionCookieOf(headers)`.
 - `get` returns its result or throws; `find` may return `null`. `assemble` builds a value from parts, `create` makes
   a new thing, `evaluate` decides, `validate` throws on a bad input.
 - A constant names what it is, not only its value: `ALLOWED_ROLES`, not `ALLOWED`.
@@ -64,41 +53,25 @@ quotes. _lint_
 
 ## Types
 
-- No `any`. _lint_
-- Avoid casts. Prefer a type guard (`isRole`, `isCurrency`) over `as`. A cast that remains sits at the one
-  boundary that validated the value, with a comment. An object literal is annotated, never cast. _lint, for object
-  literals_
-- No non-null assertion (`value!`) outside tests: it is a cast. _lint_
-- A type states whether its value can be absent. Nullable code without a nullable type ends in a null-pointer error.
-- Prefer `null` to `undefined`: write `name: string | null` rather than `name?: string`, so that leaving a value out
-  is a decision the code shows.
-
-## Promises
-
-- A promise is awaited or handled. One that is deliberately not awaited is marked with `void`:
-  `void queryClient.invalidateQueries({ queryKey })`. _lint_
-- An asynchronous event handler is started the same way: `onClick={() => void save()}`. _lint_
+- No non-null assertion (`value!`): it is a cast. A test may use it, since a wrong assumption fails the test.
+- Prefer a type guard (`isRole`, `isCurrency`) over a cast.
 
 ## Functions and classes
 
 - Several identifiers travel as one named object, never as positional strings:
   `new InvoiceLoader({ customerId, invoiceId })`, with the parameter type declared as `InvoiceLoaderParams`. No
   inline object types in a constructor signature; avoid them in method signatures too.
-- One class per file, the file named after it. _lint, for the count_
-- No nested ternaries: use `if`, `switch`, or a function. _lint_
-- No `reduce`: accumulate with a `for` loop, or map and then combine. _lint_
-- No `else` after a `return`. _lint_
-- No variable shadows one of an enclosing scope. _lint_
-- Always `===`, and always braces around a block. _lint_
-- A template string rather than `+` to build a string. _lint_
+- One class per file, the file named after it.
+- No nested ternaries: use `if`, `switch`, or a function.
+- No `reduce`: a `for` loop, or a map followed by a combination, is easier to read.
+- No `else` after a `return`.
+- No variable shadows one of an enclosing scope.
+- A template string rather than `+` to build a string.
 
 ## Modules
 
-- Named exports only. A default export is allowed where a tool requires it: its configuration file, a Storybook
-  story, a lazily loaded component. _lint_
-- A module is imported once per file. _lint_
 - No barrel files: import a value from the file that declares it. The entry point of a library is the exception.
-  _lint_
+- A module is imported once per file.
 - Small helpers go in the folder's `utils.ts`, not in one file per function.
 
 ## Backend services
@@ -126,13 +99,8 @@ quotes. _lint_
 
 - No commented-out code. A `@TODO` that points at a specific commented-out fragment is fine.
 - No console output, unless it is the product of the code or of a tool. Where logging is needed, use a logger.
-  _lint_
-- No unused variables, functions, classes, components or files. Code that is needed later belongs in a branch or in
-  the git history; failing that, mark it with `@TODO`. _lint, for variables and imports_
-- An unused name is removed, not kept behind an underscore: `[, second]` skips a position of an array and `catch {`
-  drops the error. To leave a property out of an object, use an `omit` helper or list the properties that stay.
-  _lint_
-- No `describe.only` or `it.only` left in a test file. _lint_
+- No unused functions, classes, components or files. Code that is needed later belongs in a branch or in the git
+  history; failing that, mark it with `@TODO`.
 
 ## Comments
 
@@ -154,6 +122,5 @@ When to write a comment at all is in [GUIDELINES.md](./GUIDELINES.md#comments-an
 ## Other languages
 
 - **Java:** the Google style, checked with [checkstyle](https://checkstyle.sourceforge.io/) through
-  `mvn checkstyle:check`. camelCase for variables and methods.
-- **Python:** checked with [ruff](https://github.com/astral-sh/ruff) through `ruff check`. snake_case for variables
-  and functions.
+  `mvn checkstyle:check`.
+- **Python:** checked with [ruff](https://github.com/astral-sh/ruff) through `ruff check`.
