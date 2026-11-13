@@ -9,24 +9,18 @@ the rules of Google's own linter.
 
 ## Exceptions to Google's guide
 
-**All non-frontend code runs on vanilla Node** which is why we enforce the following rules, some of which conflict
-with the Google rules.
-
-- No enums. Declare the values in an `as const` array and derive the union type from it.
-- No parameter properties: declare the field and assign it in the constructor.
-- An import that is only used as a type is written `import type`.
-- In a backend service, a relative import carries its `.ts` extension.
+- All non-frontend code runs on vanilla Node, which strips the types from a file and compiles nothing:
+  - No enums. Declare the values in an `as const` array and derive the union type from it.
+  - No parameter properties: declare the field and assign it in the constructor.
+  - An import that is only used as a type is written `import type`.
+  - In a backend service, a relative import carries its `.ts` extension.
 - No `private`, no `protected`, no `#private`. A test must be able to mock any member.
-
-We use the Prettier defaults at 120 columns instead of the Google 80 columns. It's just more comfortable.
-
-We also differ on these points:
-
 - `null` rather than `undefined`: write `name: string | null`, not `name?: string`. Leaving a value out has to be
   explicit, which prevents bugs.
 - A type alias rather than an `interface` for the shape of an object. A type alias is easier to extend and combine.
-- Double quotes, the Prettier default, rather than single quotes.
 - A default export where a tool requires it: its configuration file, a Storybook story, a lazily loaded component.
+- The Prettier defaults at 120 columns instead of the Google 80 columns. It's just more comfortable.
+- Double quotes, the Prettier default, rather than single quotes.
 
 ## Preset rules we switch off
 
