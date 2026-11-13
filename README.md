@@ -1,3 +1,5 @@
+<img alt="Openframe ApS" src="https://openframe-public.s3.eu-west-1.amazonaws.com/assets/logo-text-google-admin.png" width="200" />
+
 # Openframe conventions
 
 How Openframe writes code: the written rules, and the configuration that enforces them.
@@ -9,9 +11,8 @@ How Openframe writes code: the written rules, and the configuration that enforce
 | [AGENTS.md](./AGENTS.md)            | Instructions for AI agents working in an Openframe repository |
 | `eslint/`, `prettier/`, `tsconfig/` | The ESLint presets, Prettier configuration and tsconfig bases |
 
-The baseline is the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html), so that most
-rules are ones a newcomer already knows. `CONVENTIONS.md` lists what Openframe adds and the few places where it
-differs.
+The baseline is the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html).
+`CONVENTIONS.md` lists what Openframe adds and the few places where it differs.
 
 ## Using it in a repository
 
@@ -77,8 +78,8 @@ Follow `node_modules/@openframe-org/conventions/AGENTS.md`, and the `CONVENTIONS
 
 ## Changing a rule
 
-A rule, the comment that explains it and its paragraph in `CONVENTIONS.md` change in the same pull request. A rule
-that follows from a deliberate decision says so where it is configured, so that the next reader does not reopen it.
+Change a rule and what `CONVENTIONS.md` says about it in the same pull request, so that the two never disagree. If a
+rule exists for a specific reason, write that reason as a comment next to the rule.
 
 ## Development
 

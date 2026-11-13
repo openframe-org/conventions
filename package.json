@@ -1,7 +1,7 @@
 {
   "name": "@openframe-org/conventions",
   "version": "1.0.0",
-  "description": "Openframe's code conventions: ESLint, Prettier and TypeScript configuration, with the written conventions and guidelines",
+  "description": "Openframe code conventions and style guide",
   "license": "UNLICENSED",
   "type": "module",
   "engines": {

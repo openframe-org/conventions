@@ -9,10 +9,17 @@ How we work, and the calls that need judgement. The rules a change must follow a
   so.
 - **One task, one pull request.** Keep unrelated tasks in separate branches unless they deeply depend on each other.
   The effort of a review grows much faster than the amount of code in it.
-- **Review your own code first.** Before asking, make sure the latest code is pushed, that nothing unrelated came
-  along, and that no file that should be ignored was added. Fix what you find, then ask.
-- **Listen to CodeRabbit.** Its comments are usually useful. If you disagree with one or are unsure, reply to it and
-  tag the reviewer.
+- **Review the code first.** Do not outsource checking the code: everything a reviewer goes through should have gone
+  through you first.
+  - **Before requesting a review, you must review the code yourself.**
+  - **Ensure you are reviewing the latest version of the code.** The reviewer should review what you reviewed.
+  - Request reviews from your AI agents. CodeRabbit does an automated review. Iterate with them until you are all
+    satisfied with the state of the code. **Review the code yourself too, don't just leave it for the AI agents.**
+  - There are conventions and styling notes in some repositories. Use those as a guide, as well as the ones described
+    in this repository.
+  - Only request a review afterwards.
+  - If you disagree with a review comment or are unsure, reply to it and tag the reviewer. Follow it through, don't
+    wait for the reviewer to ping you first.
 - **`main` always works.** When your change is merged, `main` is stable and runs. Servers "just work" from `main`.
 - **So does your branch.** The reviewer must be able to pull it and run it. Tell people about new environment
   variables and requirements, and about database migrations they need to run.

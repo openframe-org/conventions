@@ -15,8 +15,9 @@ the rules of Google's own linter.
   - An import that is only used as a type is written `import type`.
   - In a backend service, a relative import carries its `.ts` extension.
 - No `private`, no `protected`, no `#private`. A test must be able to mock any member.
-- `null` rather than `undefined`: write `name: string | null`, not `name?: string`. Leaving a value out has to be
-  explicit, which prevents bugs.
+- Declare the intention. A value that can be absent is `null`, not `undefined`: write `name: string | null`, not
+  `name?: string`, so that leaving it out is a decision the caller makes explicitly. `?` is for what is truly
+  optional, such as an option most callers do not set.
 - A type alias rather than an `interface` for the shape of an object. A type alias is easier to extend and combine.
 - A default export where a tool requires it: its configuration file, a Storybook story, a lazily loaded component.
 - The Prettier defaults at 120 columns instead of the Google 80 columns. It's just more comfortable.
@@ -66,15 +67,11 @@ the rules of Google's own linter.
 
 - No barrel files: import a value from the file that declares it. The entry point of a library is the exception.
 - A module is imported once per file.
-- Small helpers go in the folder's `utils.ts`, not in one file per function.
+- Do not create a file to hold a single function. Small helpers go in the folder's `utils.ts`. If there is more of
+  it, in `utils/<overall concept>.ts`: `utils/secrets.ts`, not `utils/encryptData.ts`.
 
-## Backend services
+## Errors
 
-- No default parameter values, no optional parameters, no `??=` fallbacks. A value is required, or its absence is a
-  real state that the code checks.
-- A missing resource is an error with a 404 message, never `null`. A lookup that may legitimately be empty returns
-  `[]`.
-- Membership of a registry is tested with `Object.hasOwn`, not `in`.
 - An error message is specific (`Company with ID xxx not found`, not `Entity not found`) and carries the right
   status code: that one is a 404, not a 500.
 
