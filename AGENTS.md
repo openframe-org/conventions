@@ -20,6 +20,17 @@ This is the most important rule, and it overrides the others. The people you wor
 
 Do not start exploratory searches, search the repository or read neighboring files for context without approval.
 
+## Comments
+
+This is one of the high priority rules.
+
+- A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
+  implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
+  in `docs/`, or is left out.
+- A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
+  mistake.
+- Switching a lint rule off for a line needs a comment with the reason.
+
 ## Workflow
 
 - Ask before implementing a fix or a change. Diagnose, explain what you found, propose what you would do, then wait

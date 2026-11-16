@@ -49,6 +49,15 @@ changes listed below.
 - `unbound-method`, in tests only: it misreads an assertion on a spy.
 - `no-non-null-assertion`, in tests only: a wrong assumption fails the test.
 
+## Comments
+
+- A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
+  implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
+  in `docs/`, or is left out.
+- A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
+  mistake.
+- Switching a lint rule off for a line needs a comment with the reason.
+
 ## Naming
 
 - **Never** abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names.
@@ -102,15 +111,6 @@ changes listed below.
 - No commented-out code. A `@TODO` that points at a specific commented-out fragment is fine.
 - No unused functions, classes, components or files. Code that is needed later belongs in a branch or in the git
   history; failing that, mark it with `@TODO`.
-
-## Comments
-
-- A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
-  implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
-  in `docs/`, or is left out.
-- A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
-  mistake.
-- Switching a lint rule off for a line needs a comment with the reason.
 
 ## Git and dependencies
 
