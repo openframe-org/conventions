@@ -13,8 +13,9 @@ How we work, and the calls that need judgement. The rules our codebase must foll
   through you first.
   - **Before requesting a review, you must review the code yourself.**
   - **Ensure you are reviewing the latest version of the code.** The reviewer should review what you reviewed.
-  - Request reviews from your AI agents. CodeRabbit does an automated review. Iterate with them until you are all
-    satisfied with the state of the code. **Review the code yourself too, don't just leave it for the AI agents.**
+  - Request reviews from your own AI agents. CodeRabbit also reviews every pull request automatically, on top of
+    theirs. Iterate with all of them until you are all satisfied with the state of the code. **Review the code
+    yourself too, don't just leave it for the AI agents.**
   - There are conventions and styling notes in some repositories. Use those as a guide, as well as the ones described
     in this repository.
   - Only request a review afterwards.
