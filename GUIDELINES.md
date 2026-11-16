@@ -1,6 +1,6 @@
 # Guidelines
 
-How we work, and the calls that need judgement. The rules a change must follow are in
+How we work, and the calls that need judgement. The rules our codebase must follow are in
 [CONVENTIONS.md](./CONVENTIONS.md).
 
 ## Pull requests

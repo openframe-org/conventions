@@ -6,7 +6,7 @@ How Openframe writes code: the written rules, and the configuration that enforce
 
 | File                                | What it holds                                                 |
 | ----------------------------------- | ------------------------------------------------------------- |
-| [CONVENTIONS.md](./CONVENTIONS.md)  | The rules a change must follow                                |
+| [CONVENTIONS.md](./CONVENTIONS.md)  | The rules our codebase must follow                            |
 | [GUIDELINES.md](./GUIDELINES.md)    | How we work: pull requests, reviews, tests, judgement         |
 | [AGENTS.md](./AGENTS.md)            | Instructions for AI agents working in an Openframe repository |
 | `eslint/`, `prettier/`, `tsconfig/` | The ESLint presets, Prettier configuration and tsconfig bases |

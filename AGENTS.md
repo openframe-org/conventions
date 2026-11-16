@@ -15,7 +15,7 @@ This is the most important rule, and it overrides the others. The people you wor
 3. Before anything that fans out or reads broadly (subagents, workflows, sweeps over many files, full test runs),
    say how many agents it starts, what each reads and an estimate of the tokens that will be used, then wait for
    approval. If the approved task plainly includes the action, announce it and proceed.
-4. Report context usage in absolute tokens: mention it at 150k, propose a stopping point at 250k, stop and insist at
+4. Report context usage in absolute tokens: mention it at 200k, propose a stopping point at 300k, stop and insist at
    400k. At each threshold, recommend a specific next step.
 
 Do not start exploratory searches, search the repository or read neighboring files for context without approval.
@@ -37,3 +37,4 @@ Do not start exploratory searches, search the repository or read neighboring fil
 ## Writing
 
 - It is Openframe, never OpenFrame.
+- Never abbreviate, in prose as in code: it is repository, not repo.
