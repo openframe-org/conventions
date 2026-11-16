@@ -53,17 +53,12 @@ the rules of Google's own linter.
 
 ## Functions and classes
 
-- Several identifiers travel as one named object, never as positional strings:
-  `new InvoiceLoader({ customerId, invoiceId })`, with the parameter type declared as `InvoiceLoaderParams`. No
-  inline object types in a constructor signature; avoid them in method signatures too.
-- One class per file. The file is named after the class, with the kind of class as a suffix: `InvoiceService` in
-  `invoice.service.ts`, `InvoiceRepository` in `invoice.repository.ts`, `ResourceNotFoundError` in
-  `resourceNotFound.error.ts`.
-- No nested ternaries: use `if`, `switch`, or a function.
-- No `reduce`: a `for` loop, or a map followed by a combination, is easier to read.
-- No `else` after a `return`.
-- No variable shadows one of an enclosing scope.
-- A template string rather than `+` to build a string.
+- Several identifiers travel as one named object: `new InvoiceLoader({ customerId, invoiceId })`, typed
+  `InvoiceLoaderParams`. No inline object types in a constructor signature.
+- One class per file, named after the class with its kind as a suffix: `invoice.service.ts`,
+  `invoice.repository.ts`, `resourceNotFound.error.ts`.
+- No nested ternaries, no `reduce`, no `else` after a `return`, no shadowed variables, no string concatenation
+  with `+`.
 
 ## Modules
 
