@@ -73,8 +73,11 @@ Our main method of development is [test-driven development](https://www.browsers
   return somethingOrOther;
   ```
 
-- **Be professional.** Names, comments and commit messages describe what they are about, with correct spelling:
-  `Fixes linting issues`, not a joke.
+- **Be professional in your code and
+  [comments](https://github.com/s626ch/stitch-website-sveltekit/commit/6812c52e94cf2e3aa3b21cb45b94e68f87bb6f41).**
+  Comments, names and git messages should not be "[funny](https://latenightcommits.com/)" and should reflect their
+  context: `Fixes linting issues`, not `tries to make teh stupid thing work`. Ensure proper spelling, and keep it on
+  point.
 
 ## Documentation
 
