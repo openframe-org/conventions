@@ -21,8 +21,9 @@ How we work, and the calls that need judgement. The rules our codebase must foll
   - Only request a review afterwards.
   - If you disagree with a review comment or are unsure, reply to it and tag the reviewer. Follow it through, don't
     wait for the reviewer to ping you first.
-- **`main` always works.** When your change is merged, `main` is stable and runs. Servers "just work" from `main`.
-- **So does your branch.** The reviewer must be able to pull it and run it. Tell people about new environment
+- **`main` should always be in a working state.** It is up to you to make sure that, once your change is merged,
+  `main` is stable and runs. Servers "just work" from `main`.
+- **So should your branch.** The reviewer must be able to pull it and run it. Tell people about new environment
   variables and requirements, and about database migrations they need to run.
 - **Coordinate changes that span frontend and backend.** When a feature breaks both at once, make sure everybody
   knows, and merge in an orderly way.
