@@ -4,8 +4,8 @@ We follow the [Google TypeScript Style Guide](https://google.github.io/styleguid
 what Openframe adds to it and what it leaves out, with the reason. On anything it does not mention, Google's guide
 applies. How we work is in [GUIDELINES.md](./GUIDELINES.md).
 
-Lint enforces what it can, with ESLint's `recommended` preset, typescript-eslint's `recommendedTypeChecked` preset and
-the rules of Google's own linter.
+Lint starts from ESLint's `recommended` preset and typescript-eslint's `recommendedTypeChecked` preset, with the
+changes listed below.
 
 ## Exceptions to Google's guide
 
@@ -23,10 +23,31 @@ the rules of Google's own linter.
 - The Prettier defaults at 120 columns instead of the Google 80 columns. It's just more comfortable.
 - Double quotes, the Prettier default, rather than single quotes.
 
+## Lint rules we add
+
+- `no-restricted-syntax` for `private`, `protected` and `#private` members: a test must be able to mock any member.
+- `parameter-properties`, `consistent-type-imports`, `consistent-type-exports`, `no-import-type-side-effects`, and
+  `no-restricted-syntax` for enums and for relative `.js` imports in services: vanilla Node.
+- `explicit-member-accessibility`, `array-type`, `consistent-type-assertions`, `naming-convention`, `eqeqeq`, `curly`,
+  `block-scoped-var`, `no-var`, `prefer-const`, `prefer-arrow-callback`, `import-x/no-default-export`, and
+  `no-restricted-properties` for `describe.only` and `it.only`: Google's guide and linter.
+- `no-nested-ternary`, `no-else-return`, `prefer-template`, and `no-restricted-syntax` for `reduce`: they make code
+  harder to read.
+- `no-shadow`: a shadowed name hides the outer one.
+- `no-non-null-assertion`: `!` is a cast.
+- `id-length`: no one-letter names.
+- `no-console`: output goes through a logger.
+- `max-classes-per-file`: one class per file.
+- `import-x/no-duplicates`: a module is imported once per file.
+- `no-restricted-syntax` for function names ending in `Of`, `For` or `To`: name what follows the preposition,
+  `sessionCookieForHeaders(headers)`.
+- `no-restricted-syntax` for `export *` in services and React applications: no barrel files.
+
 ## Preset rules we switch off
 
 - `require-await`: removing `async` from a function changes how it fails.
 - `unbound-method`, in tests only: it misreads an assertion on a spy.
+- `no-non-null-assertion`, in tests only: a wrong assumption fails the test.
 
 ## Naming
 
@@ -35,8 +56,6 @@ the rules of Google's own linter.
   types and React components. `SCREAMING_SNAKE_CASE` for global constants.
 - A function name starts with a verb and says what the function returns or does: `getUserByEmail`,
   `assembleInvoiceLines`. Not a noun phrase, not a bare adjective.
-- A function name never ends in a bare preposition: no `xxxOf()`, `xxxFor()`, `xxxTo()`. Name what follows it:
-  `sessionCookieForHeaders(headers)`, not `sessionCookieOf(headers)`.
 - `get` returns its result or throws; `find` may return `null`. `assemble` builds a value from parts, `create` makes
   a new thing, `evaluate` decides, `validate` throws on a bad input.
 - A constant names what it is, not only its value: `ALLOWED_ROLES`, not `ALLOWED`.
@@ -48,22 +67,17 @@ the rules of Google's own linter.
 
 ## Types
 
-- No non-null assertion (`value!`): it is a cast. A test may use it, since a wrong assumption fails the test.
 - Prefer a type guard (`isRole`, `isCurrency`) over a cast.
 
 ## Functions and classes
 
 - Several identifiers travel as one named object: `new InvoiceLoader({ customerId, invoiceId })`, typed
   `InvoiceLoaderParams`. No inline object types in a constructor signature.
-- One class per file, named after the class with its kind as a suffix: `invoice.service.ts`,
-  `invoice.repository.ts`, `resourceNotFound.error.ts`.
-- No nested ternaries, no `reduce`, no `else` after a `return`, no shadowed variables, no string concatenation
-  with `+`.
+- A class file is named after the class, with its kind as a suffix: `invoice.service.ts`, `invoice.repository.ts`,
+  `resourceNotFound.error.ts`.
 
 ## Modules
 
-- No barrel files: import a value from the file that declares it. The entry point of a library is the exception.
-- A module is imported once per file.
 - Do not create a file to hold a single function. Small helpers go in the folder's `utils.ts`. If there is more of
   it, in `utils/<overall concept>.ts`: `utils/secrets.ts`, not `utils/encryptData.ts`.
 
@@ -86,7 +100,6 @@ the rules of Google's own linter.
 ## Keeping the code clean
 
 - No commented-out code. A `@TODO` that points at a specific commented-out fragment is fine.
-- No console output, unless it is the product of the code or of a tool. Where logging is needed, use a logger.
 - No unused functions, classes, components or files. Code that is needed later belongs in a branch or in the git
   history; failing that, mark it with `@TODO`.
 
