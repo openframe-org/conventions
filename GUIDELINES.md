@@ -76,18 +76,12 @@ Our main method of development is [test-driven development](https://www.browsers
 - **Be professional.** Names, comments and commit messages describe what they are about, with correct spelling:
   `Fixes linting issues`, not a joke.
 
-## Comments and documentation
+## Documentation
 
-Use comments sparingly. A comment exists to:
-
-- clarify something unintuitive, where a reader would expect the code to do one thing and it deliberately does
-  another;
-- explain a very complex implementation;
-- headline the start of a complicated file or block.
-
-Anything else belongs in a README or in `docs/`, and stays short there too. Documentation explains the idea and the
-reasoning behind the implementation. It does not describe the implementation step by step. It may be a little more
-verbose than a comment, but only as far as it takes to avoid being terse: it stays on the point.
+What does not belong in a [comment](./CONVENTIONS.md#comments) goes in a README or in `docs/`, and stays short there
+too. Documentation explains the idea and the reasoning behind the implementation. It does not describe the
+implementation step by step. It may be a little more verbose than a comment, but only as far as it takes to avoid
+being terse: it stays on the point.
 
 ## AI agents
 
