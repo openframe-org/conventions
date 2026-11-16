@@ -30,19 +30,39 @@ How we work, and the calls that need judgement. The rules our codebase must foll
 
 ## Reviewing
 
-Automated reviewers check the code against itself: bugs, edge cases, style. A human reviewer checks what they cannot
-know.
+We follow Google's [code review guide](https://google.github.io/eng-practices/review/). This is its core, and how
+the work is split between people and AI reviewers.
 
-- Is this the right change? Does it solve the actual problem, and is there a simpler way?
-- Does it fit the system? Is the code in the right place, and does it duplicate something that exists?
-- Does it respect the decisions and invariants that are written down nowhere?
-- Are the risky parts right: migrations, authorization, deletion of data, public interfaces, anything hard to undo?
-- Do the tests cover the behavior that matters?
-- Can something be deleted or made simpler?
+**What a review is for**
 
-Approve a change once it improves the code, even if it is not perfect. Say which comments block the merge and which
-are suggestions. When a convention covers the point, link it instead of explaining it again. What neither a
-convention nor Google's guide covers is the author's call.
+- Keeping the codebase healthy. Approve a change once it clearly improves the code, even if it is not perfect.
+- Making sure that more than one person understands every change.
+- Catching mistakes. Reviews catch fewer of them than people expect, so they do not replace tests.
+
+**What the human reviewer looks at**, in this order:
+
+1. Design: is this the right change, in the right place, and does it fit the rest of the system?
+2. Functionality: does it do what was intended, and is that good for the people who use it?
+3. Complexity: can it be simpler? Does it solve a problem that does not exist yet?
+4. Tests: are they there, and do they test the behavior that matters?
+5. Risk: whatever is expensive to get wrong or hard to undo, such as a migration, a permission check, code that
+   deletes data, or a change to a public interface.
+
+**What is left to the AI reviewers and the linter**
+
+- Formatting, lint rules and the conventions of this repository.
+- Line-by-line slips: a missing null check, an unhandled error, an edge case, a typo, duplicated code.
+
+Do not go looking for these, and do not repeat what a tool has already said. A bug you do notice is still worth a
+comment. If a tool keeps missing something, add a lint rule or a convention instead of another comment. An AI
+approval never replaces a person's.
+
+**How**
+
+- Keep pull requests small. Beyond about 400 changed lines, reviewers find far fewer problems.
+- Answer a review request within one working day.
+- Say which comments block the merge, and prefix an optional one with "Nit:".
+- Facts outweigh preferences. On style the conventions decide; where they are silent, the author does.
 
 ## Testing
 
@@ -64,16 +84,30 @@ Our main method of development is [test-driven development](https://www.browsers
 - **Keep nesting shallow.** Deeply nested code quickly becomes hard to follow.
 - **Split long functions.** Not into two hundred functions of two lines, but a function of a hundred lines can
   usually be split into parts that read better and can be tested on their own.
-- **Return early.** Inverting a condition takes the main path out of the block:
+- **Use conditionals and returns to your advantage.** For example, the following:
 
-  ```ts
+  ```tsx
+  if (conditionIsTrue) {
+    // 30 lines of code! Deeply nested!
+    return somethingOrOther;
+  }
+
+  return somethingElse;
+  ```
+
+  Can instead be written as:
+
+  ```tsx
   if (!conditionIsTrue) {
     return somethingElse;
   }
 
-  // The thirty lines that used to sit inside the condition.
+  // 30 lines of code! A bit less deeply nested!
   return somethingOrOther;
   ```
+
+  Inverting conditionals and splitting code into methods and functions helps keep code nesting to a minimum, which
+  makes it more readable and easier to work with.
 
 - **Be professional in your code and
   [comments](https://github.com/s626ch/stitch-website-sveltekit/commit/6812c52e94cf2e3aa3b21cb45b94e68f87bb6f41).**
