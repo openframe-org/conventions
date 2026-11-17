@@ -1,5 +1,5 @@
 import { createBaseConfiguration } from "./base.js";
-import { general } from "./restrictedSyntax.js";
+import { general, objectFunctionNames } from "./restrictedSyntax.js";
 
 /**
  * For libraries, which are compiled before they are published.
@@ -11,7 +11,7 @@ export function createLibraryConfiguration({ tsconfigRootDir, project }) {
   return createBaseConfiguration({
     tsconfigRootDir,
     project,
-    restrictedSyntax: general,
+    restrictedSyntax: [...general, ...objectFunctionNames],
     pluginConfigurations: [],
     allowPascalCaseFunctions: false,
   });

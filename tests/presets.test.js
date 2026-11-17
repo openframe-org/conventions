@@ -36,6 +36,7 @@ const violationsOfEveryPreset = [
 ];
 const relativeJavascriptImportViolation = "Relative imports use the `.ts` extension";
 const barrelFileViolation = "No barrel files";
+const prepositionViolation = "A function name never ends in a bare preposition";
 
 async function lintFixture({ configuration, fileName }) {
   const eslint = new ESLint({ cwd: fixturesDirectory, overrideConfigFile: true, overrideConfig: configuration });
@@ -82,6 +83,22 @@ describe("rules that differ between presets", () => {
       const reports = await lintFixture({ configuration, fileName: "violations.ts" });
 
       assert.equal(hasViolation({ reports, violation: barrelFileViolation }), name !== "library", name);
+    }
+  });
+
+  test("only libraries may re-export a value by name", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "namedReExport.ts" });
+
+      assert.equal(hasViolation({ reports, violation: barrelFileViolation }), name !== "library", name);
+    }
+  });
+
+  test("only React applications may name a function of an object literal with a trailing preposition", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "objectFunctionNames.ts" });
+
+      assert.equal(hasViolation({ reports, violation: prepositionViolation }), name !== "react", name);
     }
   });
 });

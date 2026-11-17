@@ -116,6 +116,19 @@ Our main method of development is [test-driven development](https://www.browsers
   Inverting conditionals and splitting code into methods and functions helps keep code nesting to a minimum, which
   makes it more readable and easier to work with.
 
+- **Only inline when it aids readability.** This is harder to read:
+
+  ```ts
+  for (const portfolioId of portfolioIds.filter((id) => !managedPortfolioIds.includes(id))) {
+  ```
+
+  than this:
+
+  ```ts
+  const filteredPortfolioIds = portfolioIds.filter((id) => !managedPortfolioIds.includes(id));
+  for (const portfolioId of filteredPortfolioIds) {
+  ```
+
 - **Be professional in your code and
   [comments](https://github.com/s626ch/stitch-website-sveltekit/commit/6812c52e94cf2e3aa3b21cb45b94e68f87bb6f41).**
   Comments, names and git messages should not be "[funny](https://latenightcommits.com/)" and should reflect their

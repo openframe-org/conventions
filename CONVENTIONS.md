@@ -42,8 +42,9 @@ changes listed below.
 - `max-classes-per-file`: one class per file.
 - `import-x/no-duplicates`: a module is imported once per file.
 - `no-restricted-syntax` for function names ending in `Of`, `For` or `To`: name what follows the preposition,
-  `sessionCookieForHeaders(headers)`.
-- `no-restricted-syntax` for `export *` in services and React applications: no barrel files.
+  `sessionCookieForHeaders(headers)`. A React application may name a function of an object literal this way, as the
+  messages of a translation are.
+- `no-restricted-syntax` for `export *` and `export { x } from` in services and React applications: no barrel files.
 
 ## Preset rules we switch off
 

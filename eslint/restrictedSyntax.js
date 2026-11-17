@@ -46,6 +46,11 @@ export const general = [
   },
 ];
 
+// Not applied to React applications, where the messages of a translation are functions named this way.
+export const objectFunctionNames = [
+  { selector: `Property[key.name=${PREPOSITION_ENDING}][value.type=${FUNCTION_VALUE}]`, message: PREPOSITION_MESSAGE },
+];
+
 // The backend runs on vanilla Node, which does not rewrite `.js` import paths to `.ts`.
 export const vanillaNodeImports = [
   "ImportDeclaration",
@@ -59,9 +64,7 @@ export const vanillaNodeImports = [
 }));
 
 // Not applied to libraries, whose entry point re-exports their public interface.
-export const barrelFiles = [
-  {
-    selector: "ExportAllDeclaration",
-    message: "No barrel files: import a value from the file that declares it.",
-  },
-];
+export const barrelFiles = ["ExportAllDeclaration", "ExportNamedDeclaration[source]"].map((selector) => ({
+  selector,
+  message: "No barrel files: import a value from the file that declares it.",
+}));
