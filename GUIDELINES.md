@@ -116,7 +116,7 @@ Our main method of development is [test-driven development](https://www.browsers
   Inverting conditionals and splitting code into methods and functions helps keep code nesting to a minimum, which
   makes it more readable and easier to work with.
 
-- **Only inline when it aids readability.** This is harder to read:
+- **Only inline when it aids readability.** This is harder to read and more likely to introduce bugs:
 
   ```ts
   for (const portfolioId of portfolioIds.filter((id) => !managedPortfolioIds.includes(id))) {
