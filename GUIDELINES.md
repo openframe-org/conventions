@@ -3,6 +3,8 @@
 How we work, and the calls that need judgement. The rules our codebase must follow are in
 [CONVENTIONS.md](./CONVENTIONS.md).
 
+A repository can add guidelines of its own, in its `docs/GUIDELINES.md`.
+
 ## Pull requests
 
 - **Ask for a review when you need one.** If the pull request goes stale, remind the reviewer. If it blocks you, say

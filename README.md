@@ -76,6 +76,11 @@ The written files ship inside the package, so a repository's own `AGENTS.md` onl
 Follow `node_modules/@openframe-org/conventions/AGENTS.md`, and the `CONVENTIONS.md` and `GUIDELINES.md` beside it.
 ```
 
+### A repository's own rules
+
+A repository can add conventions and guidelines of its own. For consistency, they go in the `docs/CONVENTIONS.md` and
+`docs/GUIDELINES.md` of that repository.
+
 ## Changing a rule
 
 Change a rule and what `CONVENTIONS.md` says about it in the same pull request, so that the two never disagree. If a

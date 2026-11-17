@@ -2,7 +2,8 @@
 
 For an AI agent working in an Openframe repository. Read [CONVENTIONS.md](./CONVENTIONS.md) and
 [GUIDELINES.md](./GUIDELINES.md) before writing code. The repository's own instructions come on top of these, and win
-where they are more specific.
+where they are more specific. A repository's own conventions and guidelines are in its `docs/CONVENTIONS.md` and
+`docs/GUIDELINES.md`.
 
 ## Be aware of usage
 

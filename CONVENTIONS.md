@@ -4,6 +4,8 @@ We follow the [Google TypeScript Style Guide](https://google.github.io/styleguid
 what Openframe adds to it and what it leaves out, with the reason. On anything it does not mention, Google's guide
 applies. How we work is in [GUIDELINES.md](./GUIDELINES.md).
 
+A repository can add conventions of its own, in its `docs/CONVENTIONS.md`.
+
 Lint starts from ESLint's `recommended` preset and typescript-eslint's `recommendedTypeChecked` preset, with the
 changes listed below.
 
