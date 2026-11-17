@@ -62,10 +62,12 @@ another comment. An AI approval never replaces a person's.
 
 **How**
 
-- Keep pull requests small. Beyond about 400 changed lines, reviewers find far fewer problems.
-- Answer a review request within one working day.
+- Keep pull requests small. The bigger one is, the longer it takes to review, the fewer bugs are found, and the more
+  tedious the review becomes.
+- Answer a review request as soon as possible.
 - Say which comments block the merge, and prefix an optional one with "Nit:".
-- Facts outweigh preferences. On style the conventions decide; where they are silent, the author does.
+- When you and the author disagree, a technical reason wins over a preference. A question of style is settled by
+  the conventions. If they do not cover it, the author's choice stands.
 
 ## Testing
 
