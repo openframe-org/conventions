@@ -64,7 +64,7 @@ another comment. An AI approval never replaces a person's.
 
 - Keep pull requests small. The bigger one is, the longer it takes to review, the fewer bugs are found, and the more
   tedious the review becomes.
-- Answer a review request as soon as possible.
+- Try to review code as soon as you receive it - and try to implement the required changes as soon as possible too.
 - Say which comments block the merge, and prefix an optional one with "Nit:".
 - When you and the author disagree, a technical reason wins over a preference. A question of style is settled by
   the conventions. If they do not cover it, the author's choice stands.
