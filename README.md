@@ -41,9 +41,13 @@ export default [
 ];
 ```
 
-A repository that needs to differ adds its override after the preset, with a comment saying why. The React preset
-needs `eslint-plugin-react`, `eslint-plugin-react-hooks`, `eslint-plugin-jsx-a11y` and `@tanstack/eslint-plugin-query`
-installed.
+Use `./tsconfig.json` if it covers every linted file. Otherwise add a `tsconfig.eslint.json` that extends it and
+includes the rest, such as the tests and the configuration files.
+
+A repository that needs to differ adds its override after the preset, with a comment saying why.
+
+The React preset needs ESLint 9, because `eslint-plugin-react` and `eslint-plugin-jsx-a11y` do not support ESLint 10
+yet. It also needs those two plugins, `eslint-plugin-react-hooks` and `@tanstack/eslint-plugin-query` installed.
 
 ### Prettier
 

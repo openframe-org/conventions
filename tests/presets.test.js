@@ -5,7 +5,7 @@ import { describe, test } from "node:test";
 import { ESLint } from "eslint";
 
 import { createLibraryConfiguration, createServiceConfiguration } from "../eslint/index.js";
-import { createReactConfiguration } from "../eslint/react.js";
+import { assertEslintVersionSupportsReact, createReactConfiguration } from "../eslint/react.js";
 
 const fixturesDirectory = join(import.meta.dirname, "fixtures");
 const presetParams = { tsconfigRootDir: fixturesDirectory, project: "./tsconfig.json" };
@@ -83,5 +83,15 @@ describe("rules that differ between presets", () => {
 
       assert.equal(hasViolation({ reports, violation: barrelFileViolation }), name !== "library", name);
     }
+  });
+});
+
+describe("the React preset and ESLint versions", () => {
+  test("accepts ESLint 9", () => {
+    assert.doesNotThrow(() => assertEslintVersionSupportsReact("9.39.4"));
+  });
+
+  test("refuses ESLint 10, which the React plugins do not support", () => {
+    assert.throws(() => assertEslintVersionSupportsReact("10.4.1"), /needs ESLint 9/);
   });
 });

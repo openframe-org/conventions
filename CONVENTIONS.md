@@ -119,7 +119,7 @@ changes listed below.
 - The task ID prefixes the branch (`dev-1234-<description>`) and the pull request title (`DEV-1234: <title>`). Jira
   links a task to its branches this way.
 - Pin exact dependency versions and run a plain `npm install`.
-- Before asking for a review, `npm run lint` and `npm run tc` pass.
+- Before asking for a review, the lint and typecheck scripts of the repository pass.
 
 ## Other languages
 

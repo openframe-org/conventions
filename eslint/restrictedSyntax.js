@@ -53,7 +53,8 @@ export const vanillaNodeImports = [
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ].map((nodeType) => ({
-  selector: `${nodeType}[source.value=/^\\.\\.?\\/.*\\.js$/]`,
+  // `\u002F` is a slash. Older versions of ESLint's selector parser end the pattern at a written one.
+  selector: `${nodeType}[source.value=/^\\.\\.?\\u002F.*\\.js$/]`,
   message: RELATIVE_JAVASCRIPT_IMPORT_MESSAGE,
 }));
 
