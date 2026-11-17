@@ -48,14 +48,17 @@ the work is split between people and AI reviewers.
 5. Risk: whatever is expensive to get wrong or hard to undo, such as a migration, a permission check, code that
    deletes data, or a change to a public interface.
 
-**What is left to the AI reviewers and the linter**
+**What the AI reviewers look at**
 
-- Formatting, lint rules and the conventions of this repository.
-- Line-by-line slips: a missing null check, an unhandled error, an edge case, a typo, duplicated code.
+Everything the human reviewer does, and more: the conventions of this repository, and every line for slips such as a
+missing null check, an unhandled error, an edge case, a typo or duplicated code. The linter covers formatting and
+the lint rules.
 
-Do not go looking for these, and do not repeat what a tool has already said. A bug you do notice is still worth a
-comment. If a tool keeps missing something, add a lint rule or a convention instead of another comment. An AI
-approval never replaces a person's.
+**What the human reviewer leaves to them**
+
+The line-by-line work. Do not go looking for slips, and do not repeat what a tool has already said. A bug you do
+notice is still worth a comment. If a tool keeps missing something, add a lint rule or a convention instead of
+another comment. An AI approval never replaces a person's.
 
 **How**
 
