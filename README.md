@@ -114,7 +114,8 @@ npm. A prerelease publishes nothing.
 
 The workflow holds no npm token. It relies on a trusted publisher configured on npm for `@openframe-org/conventions`,
 with this repository, the workflow `publish-to-npmjs.yml` and the environment `production`. Configure it before
-publishing the first release.
+publishing the first release. Under "Allowed actions", select `npm publish`, because the workflow runs `npm publish`
+directly. Selecting only `npm stage publish` does not permit this workflow to publish.
 
 ## License
 
