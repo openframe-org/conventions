@@ -18,9 +18,11 @@ changes listed below.
   - An import that is only used as a type is written `import type`.
   - In a backend service, a relative import carries its `.ts` extension.
 - Declare the intention:
-  - A value that can be absent is `null`, not `undefined`: write `name: string | null`, not `name?: string`, so that
-    leaving it out is a decision the caller makes explicitly. `?` is for what is truly optional, such as an option
-    most callers do not set.
+  - Prefer required properties and parameters, so that callers make their choices explicitly. When a value belongs
+    to the contract but may be absent, use `Value | null`: write `website: string | null`, not `website?: string`.
+  - Use an optional property or parameter only when omission itself has a defined meaning, distinct from supplying a
+    value or `null`. Do not make something optional merely to save callers from providing it, and make the meaning
+    of omission clear in the contract.
   - A class member states its accessibility: write the `public` keyword.
 - All class members are publicly accessible. Do not use `private`, `protected` or JavaScript private fields. We keep
   class members accessible for testing.
