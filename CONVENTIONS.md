@@ -90,8 +90,10 @@ changes listed below.
 - A class file is named after the class, with its kind as a suffix: `invoice.service.ts`, `invoice.repository.ts`,
   `resourceNotFound.error.ts`.
 
-## Modules
+## Utility functions
 
+- Use them sparingly, and only for small, repetitive tasks. Anything larger belongs in a service or repository, where
+  it can be mocked.
 - Do not create a file to hold a single function. Small helpers go in the folder's `utils.ts`. If there is more of
   it, in `utils/<overall concept>.ts`: `utils/secrets.ts`, not `utils/encryptData.ts`.
 
