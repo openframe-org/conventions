@@ -8,15 +8,15 @@ export const ACCOUNT_ROLES = ["owner", "member"] as const;
 export type AccountRole = (typeof ACCOUNT_ROLES)[number];
 
 export class Account {
-  identifier: string;
-  displayName: string | null;
+  public identifier: string;
+  public displayName: string | null;
 
-  constructor(params: AccountParams) {
+  public constructor(params: AccountParams) {
     this.identifier = params.identifier;
     this.displayName = params.displayName;
   }
 
-  getDisplayNameOrIdentifier(): string {
+  public getDisplayNameOrIdentifier(): string {
     return this.displayName ?? this.identifier;
   }
 }

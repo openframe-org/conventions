@@ -72,8 +72,6 @@ export function createBaseConfiguration({
       name: "openframe/google-typescript",
       files: TYPESCRIPT_FILES,
       rules: {
-        // Members are public by default: the keyword is never written.
-        "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "no-public" }],
         "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
         "@typescript-eslint/consistent-type-assertions": [
           "error",
@@ -111,6 +109,8 @@ export function createBaseConfiguration({
         "@typescript-eslint/consistent-type-exports": "error",
         "@typescript-eslint/no-import-type-side-effects": "error",
         "@typescript-eslint/no-non-null-assertion": "error",
+        // Every member states its accessibility, like every other intention. Google's guide omits the keyword.
+        "@typescript-eslint/explicit-member-accessibility": "error",
         // ESLint replaces the options of a rule, so the list for every file is repeated here.
         "no-restricted-syntax": ["error", ...restrictedSyntax, ...typescriptRestrictedSyntax],
         "no-shadow": "off",

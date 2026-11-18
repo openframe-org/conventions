@@ -6,9 +6,9 @@ export const actions = {
 };
 
 export class Actions {
-  [connectedTo] = (project: string): string => project;
+  public [connectedTo] = (project: string): string => project;
 
-  [copyOf](project: string): string {
+  public [copyOf](project: string): string {
     return project;
   }
 }

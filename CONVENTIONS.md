@@ -17,11 +17,13 @@ changes listed below.
   - No parameter properties: declare the field and assign it in the constructor.
   - An import that is only used as a type is written `import type`.
   - In a backend service, a relative import carries its `.ts` extension.
-- All class members are publicly accessible. Omit the `public` keyword, because public accessibility is the default.
-  Do not use `private`, `protected` or JavaScript private fields. We keep class members accessible for testing.
-- Declare the intention. A value that can be absent is `null`, not `undefined`: write `name: string | null`, not
-  `name?: string`, so that leaving it out is a decision the caller makes explicitly. `?` is for what is truly
-  optional, such as an option most callers do not set.
+- Declare the intention:
+  - A value that can be absent is `null`, not `undefined`: write `name: string | null`, not `name?: string`, so that
+    leaving it out is a decision the caller makes explicitly. `?` is for what is truly optional, such as an option
+    most callers do not set.
+  - A class member states its accessibility: write the `public` keyword.
+- All class members are publicly accessible. Do not use `private`, `protected` or JavaScript private fields. We keep
+  class members accessible for testing.
 - Use type aliases for data shapes, including parameter objects, and for unions, intersections and function types.
   Use an `interface` only for a contract that classes implement, never merely to describe a data object:
 
@@ -44,9 +46,10 @@ changes listed below.
 
 - `no-restricted-syntax` for `private`, `protected` and `#private` members: we keep class members accessible for
   testing.
+- `explicit-member-accessibility`: a member states that it is `public`, so that the intention is explicit.
 - `parameter-properties`, `consistent-type-imports`, `consistent-type-exports`, `no-import-type-side-effects`, and
   `no-restricted-syntax` for enums and for relative `.js` imports in the TypeScript files of services: vanilla Node.
-- `explicit-member-accessibility`, `array-type`, `consistent-type-assertions`, `naming-convention`, `eqeqeq`, `curly`,
+- `array-type`, `consistent-type-assertions`, `naming-convention`, `eqeqeq`, `curly`,
   `block-scoped-var`, `no-var`, `prefer-const`, `prefer-arrow-callback`, `import-x/no-default-export`, and
   `no-restricted-properties` for `describe.only` and `it.only`: Google's guide and linter.
 - `no-nested-ternary`, `no-else-return`, `prefer-template`, and `no-restricted-syntax` for `reduce`: they make code
