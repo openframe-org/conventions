@@ -35,6 +35,8 @@ changes listed below.
   `no-restricted-properties` for `describe.only` and `it.only`: Google's guide and linter.
 - `no-nested-ternary`, `no-else-return`, `prefer-template`, and `no-restricted-syntax` for `reduce`: they make code
   harder to read.
+- `explicit-function-return-type` in services and libraries: a function declares what it returns, so that a
+  change of it is a decision. Not in React applications, where almost every function is a component.
 - `no-shadow`: a shadowed name hides the outer one.
 - `no-non-null-assertion`: `!` is a cast.
 - `id-length`: no one-letter names.

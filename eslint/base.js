@@ -25,6 +25,7 @@ export const CONFIGURATION_FILES = ["**/*.config.{js,mjs,cjs,ts,mts,cts}"];
  *   restrictedSyntax: { selector: string, message: string }[],
  *   pluginConfigurations: import("eslint").Linter.Config[],
  *   allowPascalCaseFunctions: boolean,
+ *   requireReturnTypes: boolean,
  * }} params `pluginConfigurations` are placed before the formatting overrides, which must come last.
  * @returns {import("eslint").Linter.Config[]}
  */
@@ -34,6 +35,7 @@ export function createBaseConfiguration({
   restrictedSyntax,
   pluginConfigurations,
   allowPascalCaseFunctions,
+  requireReturnTypes,
 }) {
   const parserOptions = project === null ? { projectService: true, tsconfigRootDir } : { project, tsconfigRootDir };
 
@@ -111,6 +113,7 @@ export function createBaseConfiguration({
         "@typescript-eslint/no-shadow": "error",
         // Removing `async` from a function changes how it fails: it throws instead of returning a rejected promise.
         "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/explicit-function-return-type": requireReturnTypes ? "error" : "off",
       },
     },
     {

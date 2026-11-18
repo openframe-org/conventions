@@ -94,6 +94,14 @@ describe("rules that differ between presets", () => {
     }
   });
 
+  test("only React applications may leave out the return type of a function", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "missingReturnType.ts" });
+
+      assert.deepEqual(reports, name === "react" ? [] : ["@typescript-eslint/explicit-function-return-type"], name);
+    }
+  });
+
   test("only React applications may name a function of an object literal with a trailing preposition", async () => {
     for (const { name, configuration } of presets) {
       const reports = await lintFixture({ configuration, fileName: "objectFunctionNames.ts" });

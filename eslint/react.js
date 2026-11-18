@@ -50,6 +50,8 @@ export function createReactConfiguration({ tsconfigRootDir, project }) {
         jsxA11y.flatConfigs.recommended,
       ],
       allowPascalCaseFunctions: true,
+      // Almost every function of a React application is a component, whose return type says nothing.
+      requireReturnTypes: false,
     }),
     {
       // Storybook loads stories and its own configuration through the default export.
