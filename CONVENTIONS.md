@@ -23,6 +23,11 @@ changes listed below.
   - Use an optional property or parameter only when omission itself has a defined meaning, distinct from supplying a
     value or `null`. Do not make something optional merely to save callers from providing it, and make the meaning
     of omission clear in the contract.
+  - Prefer required parameters. Use a default only when it is part of the operation's defined behavior, such as a
+    standard page size. Require an explicit value when the choice belongs to the caller, such as a user's locale,
+    company or transaction. Do not add a default merely to avoid updating call sites.
+  - When `null` has a distinct meaning, preserve it. Remember that `value ?? fallback` replaces both `null` and
+    `undefined`.
   - A class member states its accessibility: write the `public` keyword.
 - All class members are publicly accessible. Do not use `private`, `protected` or JavaScript private fields. We keep
   class members accessible for testing.
