@@ -24,7 +24,7 @@ A repository can add guidelines of its own, in its `docs/GUIDELINES.md`.
   - If you disagree with a review comment or are unsure, reply to it and tag the reviewer. Follow it through, don't
     wait for the reviewer to ping you first.
 - **`main` should always be in a working state.** It is up to you to make sure that, once your change is merged,
-  `main` is stable and runs. Servers "just work" from `main`.
+  `main` is stable and runs. Servers should "just work" from `main`.
 - **Your branch should work when it is reviewed.** The reviewer must be able to pull it and run it. Tell people about
   new environment variables and requirements, and about database migrations they need to run.
 - **Coordinate changes that span frontend and backend.** When a feature breaks both at once, make sure everybody
@@ -41,7 +41,7 @@ the work is split between people and AI reviewers.
 - Making sure that more than one person understands every change.
 - Catching mistakes. Reviews catch fewer of them than people expect, so they do not replace tests.
 
-**What the human reviewer looks at**, in this order:
+**What the human reviewer should look at**, in this order:
 
 1. Design: is this the right change, in the right place, and does it fit the rest of the system?
 2. Functionality: does it do what was intended, and is that good for the people who use it?
@@ -50,17 +50,17 @@ the work is split between people and AI reviewers.
 5. Risk: whatever is expensive to get wrong or hard to undo, such as a migration, a permission check, code that
    deletes data, or a change to a public interface.
 
-**What the AI reviewers look at**
+**What the AI reviewers should look at**
 
 Everything the human reviewer does, and more: the conventions of this repository, and every line for slips such as a
 missing null check, an unhandled error, an edge case, a typo or duplicated code. The linter covers formatting and
 the lint rules.
 
-**What the human reviewer leaves to them**
+**What the human reviewer should leave to them**
 
 The line-by-line work. Do not go looking for slips, and do not repeat what a tool has already said. A bug you do
 notice is still worth a comment. If a tool keeps missing something, add a lint rule or a convention instead of
-another comment. An AI approval never replaces a person's.
+another comment. An AI approval must never replace a person's.
 
 **How**
 
@@ -68,8 +68,8 @@ another comment. An AI approval never replaces a person's.
   tedious the review becomes.
 - Try to review code as soon as you receive it - and try to implement the required changes as soon as possible too.
 - Say which comments block the merge, and prefix an optional one with "Nit:".
-- When you and the author disagree, a technical reason wins over a preference. A question of style is settled by
-  the conventions. If they do not cover it, the author's choice stands.
+- When you and the author disagree, a technical reason should win over a preference. A question of style should be
+  settled by the conventions. If they do not cover it, the author's choice should stand.
 
 ## Testing
 
@@ -141,11 +141,11 @@ Our main method of development is [test-driven development](https://www.browsers
 
 ## Documentation
 
-What does not belong in a [comment](./CONVENTIONS.md#comments) goes in a README or in `docs/`, and stays short there
-too. Documentation explains the idea and the reasoning behind the implementation. It does not describe the
-implementation step by step. It may be a little more verbose than a comment, but only as far as it takes to avoid
-being terse: it stays on the point.
+What does not belong in a [comment](./CONVENTIONS.md#comments) should go in a README or in `docs/`, and should stay
+short there too. Documentation should explain the idea and the reasoning behind the implementation. It should not
+describe the implementation step by step. It may be a little more verbose than a comment, but only as far as it takes
+to avoid being terse: it should stay on the point.
 
 ## AI agents
 
-Agents follow the same conventions and guidelines, plus the working rules in [AGENTS.md](./AGENTS.md).
+Agents should follow the same conventions and guidelines, plus the working rules in [AGENTS.md](./AGENTS.md).
