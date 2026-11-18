@@ -110,7 +110,8 @@ intended. This is one of our most important principles, and several of the rules
 
 ## Naming
 
-- **Never** abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names.
+- **Never** abbreviate, apart from the [allowed abbreviations](#allowed-abbreviations) below. `obj`, `i`, `arr` and
+  `mapDDFieldtoOC` are not acceptable names.
 - `camelCase` for TypeScript, `snake_case` for Python variables, functions and methods. `PascalCase` for classes,
   types and React components. `SCREAMING_SNAKE_CASE` for global constants.
 - A function name should start with a verb and say what the function returns or does: `getUserByEmail`,
@@ -124,6 +125,21 @@ intended. This is one of our most important principles, and several of the rules
 - A type parameter should carry no `Type` suffix: `Action`, not `ActionType`.
 - The type of a parameter object should be named `XxxParams`.
 - It is Openframe, never OpenFrame.
+
+### Allowed abbreviations
+
+An abbreviation is allowed in three cases only. Anything else should be spelled out.
+
+- **`ms`, for milliseconds.** It may be used in a name: `timeoutMs`, `openTimeoutMs`, `DAY_MS`. The abbreviation is
+  used universally, so spelling it out would make these names harder to recognize, not easier.
+- **Established abbreviations of a library.** Code may use an abbreviation that a library consistently uses for the
+  same concept, such as `ctx` for Zod's refinement context or `req` and `res` for the request and response of
+  Express. The abbreviation should keep that meaning, including when the value is passed on to another function,
+  and should not be used for anything else. A shortened name that only appears in an example does not establish a
+  convention.
+- **`app`, `db` and `tx`.** These may be used throughout our code, for an application, a database or database
+  connection, and a transaction. Like `ms`, `db` is used universally. `app` comes from Express, and `tx` is what a
+  transaction is usually called in code that uses TypeORM, but neither is restricted to that library.
 
 ## Types
 
