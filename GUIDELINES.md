@@ -83,6 +83,9 @@ Our main method of development is [test-driven development](https://www.browsers
 - Assert what the system did, not what the code under test called: read the database again, render the message and
   check its body. Do not spy on the methods of the service under test.
 - Test a state machine backwards as well as forwards: every refused transition has a test next to the allowed ones.
+- Tests do not depend on execution order or on shared mutable state. Each test owns its setup and cleans up the
+  state it creates. Control time and randomness when they affect the result. An end-to-end journey whose steps
+  build on each other by design is the exception.
 - A fixture or helper is named by what it returns. A test over several cases lists them as named entries, each with
   its expectation beside it.
 

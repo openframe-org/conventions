@@ -83,6 +83,22 @@ describe("rules that differ between presets", () => {
     }
   });
 
+  test("a JavaScript file may import another one with its `.js` extension", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "javascriptImport.js" });
+
+      assert.deepEqual(reports, [], name);
+    }
+  });
+
+  test("a function name does not end in Until", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "untilName.ts" });
+
+      assert.ok(hasViolation({ reports, violation: prepositionViolation }), name);
+    }
+  });
+
   test("only libraries may re-export a whole module", async () => {
     for (const { name, configuration } of presets) {
       const reports = await lintFixture({ configuration, fileName: "violations.ts" });

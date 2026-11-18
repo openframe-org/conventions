@@ -1,10 +1,11 @@
 # Conventions
 
-We follow the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html). This file lists only
-what Openframe adds to it and what it leaves out, with the reason. On anything it does not mention, Google's guide
-applies. How we work is in [GUIDELINES.md](./GUIDELINES.md).
+Follow the [Google TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html) unless this document
+states an exception. A repository's `docs/CONVENTIONS.md` may add rules or document a justified exception. More
+specific rules take precedence.
 
-A repository can add conventions of its own, in its `docs/CONVENTIONS.md`.
+This file lists only what Openframe adds to Google's guide and what it leaves out, with the reason. How we work is in
+[GUIDELINES.md](./GUIDELINES.md).
 
 Lint starts from ESLint's `recommended` preset and typescript-eslint's `recommendedTypeChecked` preset, with the
 changes listed below.
@@ -16,20 +17,35 @@ changes listed below.
   - No parameter properties: declare the field and assign it in the constructor.
   - An import that is only used as a type is written `import type`.
   - In a backend service, a relative import carries its `.ts` extension.
-- No `private`, no `protected`, no `#private`. A test must be able to mock any member.
+- All class members are publicly accessible. Omit the `public` keyword, because public accessibility is the default.
+  Do not use `private`, `protected` or JavaScript private fields. We keep class members accessible for testing.
 - Declare the intention. A value that can be absent is `null`, not `undefined`: write `name: string | null`, not
   `name?: string`, so that leaving it out is a decision the caller makes explicitly. `?` is for what is truly
   optional, such as an option most callers do not set.
-- A type alias rather than an `interface` for the shape of an object. A type alias is easier to extend and combine.
+- Use type aliases for data shapes, including parameter objects, and for unions, intersections and function types.
+  Use an `interface` only for a contract that classes implement, never merely to describe a data object:
+
+  ```ts
+  type CompanyParams = {
+    name: string;
+    website: string | null;
+  };
+
+  interface CompanyRepository {
+    findCompanyByIdentifier(identifier: string): Promise<Company | null>;
+  }
+  ```
+
 - A default export where a tool requires it: its configuration file, a Storybook story, a lazily loaded component.
 - The Prettier defaults at 120 columns instead of the Google 80 columns. It's just more comfortable.
 - Double quotes, the Prettier default, rather than single quotes.
 
 ## Lint rules we add
 
-- `no-restricted-syntax` for `private`, `protected` and `#private` members: a test must be able to mock any member.
+- `no-restricted-syntax` for `private`, `protected` and `#private` members: we keep class members accessible for
+  testing.
 - `parameter-properties`, `consistent-type-imports`, `consistent-type-exports`, `no-import-type-side-effects`, and
-  `no-restricted-syntax` for enums and for relative `.js` imports in services: vanilla Node.
+  `no-restricted-syntax` for enums and for relative `.js` imports in the TypeScript files of services: vanilla Node.
 - `explicit-member-accessibility`, `array-type`, `consistent-type-assertions`, `naming-convention`, `eqeqeq`, `curly`,
   `block-scoped-var`, `no-var`, `prefer-const`, `prefer-arrow-callback`, `import-x/no-default-export`, and
   `no-restricted-properties` for `describe.only` and `it.only`: Google's guide and linter.
@@ -43,8 +59,8 @@ changes listed below.
 - `no-console`: output goes through a logger.
 - `max-classes-per-file`: one class per file.
 - `import-x/no-duplicates`: a module is imported once per file.
-- `no-restricted-syntax` for function names ending in `Of`, `For` or `To`: name what follows the preposition,
-  `sessionCookieForHeaders(headers)`. A React application may name a function of an object literal this way, as the
+- `no-restricted-syntax` for function names ending in `Of`, `For`, `To` or `Until`: name what follows the
+  preposition, `sessionCookieForHeaders(headers)`, `setLoginLockedUntilDate(date)`. A React application may name a function of an object literal this way, as the
   messages of a translation are.
 - `no-restricted-syntax` for `export *` and `export { x } from` in services and React applications: no barrel files.
 
@@ -82,7 +98,10 @@ changes listed below.
 
 ## Types
 
-- Prefer a type guard (`isRole`, `isCurrency`) over a cast.
+- Prefer a type guard (`isRole`, `isCurrency`) over a cast. In particular, validate values from outside the
+  application, such as requests, environment variables and third-party responses, before treating them as application
+  types. A type guard checks the properties that establish the type, and a schema validator can do the same. A cast
+  performs no validation.
 
 ## Functions and classes
 
@@ -93,20 +112,31 @@ changes listed below.
 
 ## Utility functions
 
-- Use them sparingly, and only for small, repetitive tasks. Anything larger belongs in a service or repository, where
-  it can be mocked.
-- Do not create a file to hold a single function. Small helpers go in the folder's `utils.ts`. If there is more of
-  it, in `utils/<overall concept>.ts`: `utils/secrets.ts`, not `utils/encryptData.ts`.
+- Use utility functions sparingly, for small, repetitive operations. Put them in the folder's `utils.ts`. When
+  utilities need separate modules, group them by concept or domain under `utils/`: `utils/secrets.ts`, not
+  `utils/encryptData.ts`. Never create a file named after the single function it contains.
+- Larger behavior belongs in a service or repository, so that consumers can replace that dependency in tests. Choose
+  between the two by responsibility: repositories own data access.
 
 ## Errors
 
 - An error message is specific (`Company with ID xxx not found`, not `Entity not found`) and carries the right
   status code: that one is a 404, not a 500.
+- Catch an error only to recover, translate it at a boundary, or add useful context. Preserve its cause when wrapping
+  it. Never silently discard a failure.
+
+## Logging
+
+- Do not log credentials, access tokens or sensitive payloads. Include enough operational context to diagnose a
+  failure.
 
 ## React
 
-- Do not memoize components. A component lives at the top level of a file. A complex node inside `memo`, `useMemo`
-  or `useCallback` should be its own component, usually in its own file.
+- Express reusable or substantial UI as components, not as functions that return JSX or callbacks that construct a
+  component tree. Declare components at module scope, usually in their own files, and pass their inputs as props.
+  Components may use hooks directly.
+- Do not memoize components or JSX with `memo`, `useMemo` or `useCallback`. When rendering logic becomes complex,
+  extract a component.
 
 ## Identifiers of entities
 

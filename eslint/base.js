@@ -23,6 +23,7 @@ export const CONFIGURATION_FILES = ["**/*.config.{js,mjs,cjs,ts,mts,cts}"];
  *
  * @param {PresetParams & {
  *   restrictedSyntax: { selector: string, message: string }[],
+ *   typescriptRestrictedSyntax: { selector: string, message: string }[],
  *   pluginConfigurations: import("eslint").Linter.Config[],
  *   allowPascalCaseFunctions: boolean,
  *   requireReturnTypes: boolean,
@@ -33,6 +34,7 @@ export function createBaseConfiguration({
   tsconfigRootDir,
   project,
   restrictedSyntax,
+  typescriptRestrictedSyntax,
   pluginConfigurations,
   allowPascalCaseFunctions,
   requireReturnTypes,
@@ -109,6 +111,8 @@ export function createBaseConfiguration({
         "@typescript-eslint/consistent-type-exports": "error",
         "@typescript-eslint/no-import-type-side-effects": "error",
         "@typescript-eslint/no-non-null-assertion": "error",
+        // ESLint replaces the options of a rule, so the list for every file is repeated here.
+        "no-restricted-syntax": ["error", ...restrictedSyntax, ...typescriptRestrictedSyntax],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
         // Removing `async` from a function changes how it fails: it throws instead of returning a rejected promise.

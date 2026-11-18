@@ -12,6 +12,7 @@ export function createLibraryConfiguration({ tsconfigRootDir, project }) {
     tsconfigRootDir,
     project,
     restrictedSyntax: [...general, ...objectFunctionNames],
+    typescriptRestrictedSyntax: [],
     pluginConfigurations: [],
     allowPascalCaseFunctions: false,
     requireReturnTypes: true,

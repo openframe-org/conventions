@@ -1,10 +1,10 @@
 // Selectors for `no-restricted-syntax`. ESLint accepts one configuration of that rule per file, so each preset
 // builds its list from these groups.
 
-const PREPOSITION_ENDING = "/[a-z0-9](Of|For|To)$/";
+const PREPOSITION_ENDING = "/[a-z0-9](Of|For|To|Until)$/";
 const FUNCTION_VALUE = "/^(ArrowFunctionExpression|FunctionExpression)$/";
 const PREPOSITION_MESSAGE =
-  "A function name never ends in a bare preposition (Of, For, To). Name what follows it: " +
+  "A function name never ends in a bare preposition (Of, For, To, Until). Name what follows it: " +
   "`sessionCookieForHeaders(headers)`, not `sessionCookieOf(headers)`.";
 const PRIVATE_MEMBER_MESSAGE =
   "Every class member is public, so that tests can mock it. Remove the `private` or `protected` modifier.";
@@ -54,7 +54,8 @@ export const objectFunctionNames = [
   },
 ];
 
-// The backend runs on vanilla Node, which does not rewrite `.js` import paths to `.ts`.
+// The backend runs on vanilla Node, which does not rewrite `.js` import paths to `.ts`. For TypeScript files only: a
+// JavaScript file may import another one.
 export const vanillaNodeImports = [
   "ImportDeclaration",
   "ImportExpression",

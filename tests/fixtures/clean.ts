@@ -1,7 +1,7 @@
-export interface AccountParams {
+export type AccountParams = {
   identifier: string;
   displayName: string | null;
-}
+};
 
 export const ACCOUNT_ROLES = ["owner", "member"] as const;
 

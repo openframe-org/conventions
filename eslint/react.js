@@ -34,6 +34,7 @@ export function createReactConfiguration({ tsconfigRootDir, project }) {
       tsconfigRootDir,
       project,
       restrictedSyntax: [...general, ...barrelFiles],
+      typescriptRestrictedSyntax: [],
       pluginConfigurations: [
         ...tanstackQuery.configs["flat/recommended"],
         {

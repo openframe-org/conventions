@@ -11,7 +11,8 @@ export function createServiceConfiguration({ tsconfigRootDir, project }) {
   return createBaseConfiguration({
     tsconfigRootDir,
     project,
-    restrictedSyntax: [...general, ...objectFunctionNames, ...vanillaNodeImports, ...barrelFiles],
+    restrictedSyntax: [...general, ...objectFunctionNames, ...barrelFiles],
+    typescriptRestrictedSyntax: vanillaNodeImports,
     pluginConfigurations: [],
     allowPascalCaseFunctions: false,
     requireReturnTypes: true,
