@@ -10,6 +10,24 @@ This file lists only what Openframe adds to Google's guide and what it leaves ou
 Lint starts from ESLint's `recommended` preset and typescript-eslint's `recommendedTypeChecked` preset, with the
 changes listed below.
 
+## Declare the intention
+
+Code says what it means. Whoever owns a choice makes it explicitly, and nothing is left to a default, an omission or
+the reader's guess. This is one of our most important rules, and several of the rules below follow from it.
+
+- Prefer required properties and parameters, so that callers make their choices explicitly. When a value belongs to
+  the contract but may be absent, use `Value | null`: write `website: string | null`, not `website?: string`.
+- Use an optional property or parameter only when omission itself has a defined meaning, distinct from supplying a
+  value or `null`. Do not make something optional merely to save callers from providing it, and make the meaning of
+  omission clear in the contract.
+- Prefer required parameters. Use a default only when it is part of the operation's defined behavior, such as a
+  standard page size. Require an explicit value when the choice belongs to the caller, such as a user's locale,
+  company or transaction. Do not add a default merely to avoid updating call sites.
+- When `null` has a distinct meaning, preserve it. Remember that `value ?? fallback` replaces both `null` and
+  `undefined`.
+- All class members must be public and include the `public` keyword. This makes their accessibility explicit, in
+  keeping with our preference for declaring intentions.
+
 ## Exceptions to Google's guide
 
 - All non-frontend code runs on vanilla Node, which strips the types from a file and compiles nothing:
@@ -17,19 +35,8 @@ changes listed below.
   - No parameter properties: declare the field and assign it in the constructor.
   - An import that is only used as a type is written `import type`.
   - In a backend service, a relative import carries its `.ts` extension.
-- Declare the intention:
-  - Prefer required properties and parameters, so that callers make their choices explicitly. When a value belongs
-    to the contract but may be absent, use `Value | null`: write `website: string | null`, not `website?: string`.
-  - Use an optional property or parameter only when omission itself has a defined meaning, distinct from supplying a
-    value or `null`. Do not make something optional merely to save callers from providing it, and make the meaning
-    of omission clear in the contract.
-  - Prefer required parameters. Use a default only when it is part of the operation's defined behavior, such as a
-    standard page size. Require an explicit value when the choice belongs to the caller, such as a user's locale,
-    company or transaction. Do not add a default merely to avoid updating call sites.
-  - When `null` has a distinct meaning, preserve it. Remember that `value ?? fallback` replaces both `null` and
-    `undefined`.
-  - All class members must be public and include the `public` keyword. This makes their accessibility explicit, in
-    keeping with our preference for declaring intentions.
+- What [Declare the intention](#declare-the-intention) asks for: `null` rather than an optional property, and the
+  `public` keyword.
 - Do not use `private`, `protected` or JavaScript private fields. We keep class members publicly accessible for
   testing.
 - Use type aliases for data shapes, including parameter objects, and for unions, intersections and function types.
