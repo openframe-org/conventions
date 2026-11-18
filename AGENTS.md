@@ -52,4 +52,5 @@ This is one of the high priority rules.
 ## Writing
 
 - It is Openframe, never OpenFrame.
-- Never abbreviate, in prose as in code: it is repository, not repo.
+- Never abbreviate, in prose as in code: it is repository, not repo. The only exceptions are the
+  [abbreviations the conventions allow](./CONVENTIONS.md#allowed-abbreviations).
