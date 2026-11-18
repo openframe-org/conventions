@@ -85,8 +85,8 @@ Our main method of development is [test-driven development](https://www.browsers
 - Test a state machine backwards as well as forwards: every refused transition should have a test next to the allowed
   ones.
 - Tests must not depend on execution order or on shared mutable state. Each test should own its setup and clean up the
-  state it creates. Control time and randomness when they affect the result. An end-to-end journey whose steps build
-  on each other by design is the exception.
+  state it creates. Control time and randomness when they affect the result. An end-to-end journey may contain
+  dependent steps, but the journey as a whole should run independently.
 - A fixture or helper should be named by what it returns. A test over several cases should list them as named entries,
   each with its expectation beside it.
 

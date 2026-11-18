@@ -31,23 +31,30 @@ intended. This is one of our most important principles, and several of the rules
 
 ## Exceptions to Google's guide
 
-- All non-frontend code runs on vanilla Node, which strips the types from a file and compiles nothing:
-  - No enums. Declare the values in an `as const` array and derive the union type from it.
-  - No parameter properties: declare the field and assign it in the constructor.
-  - An import that is only used as a type should be written `import type`.
-  - In a backend service, a relative import should carry its `.ts` extension.
+- Do not use enums or parameter properties in TypeScript code. This keeps the style consistent across repositories and
+  allows backend code to run with Node's type stripping. Instead of an enum, declare the values in an `as const` array
+  and derive the union type from it. Instead of a parameter property, declare the field and assign it in the
+  constructor.
+- An import that is only used as a type should be written `import type`, for the same two reasons.
+- In a backend service, a relative import should carry its `.ts` extension: Node strips the types from a file and
+  does not rewrite import paths.
 - What [Declare the intention](#declare-the-intention) asks for: `null` rather than an optional property, and the
   `public` keyword.
 - Do not use `private`, `protected` or JavaScript private fields. We keep class members publicly accessible for
   testing.
-- Use type aliases for data shapes, including parameter objects, and for unions, intersections and function types.
-  Use an `interface` only for a contract that classes implement, never merely to describe a data object:
+- Use type aliases for data shapes, including parameter objects, and for unions and intersections. Use interfaces
+  only to describe function types through call signatures or to define contracts that classes implement. Do not use
+  interfaces merely to describe data objects:
 
   ```ts
   type CompanyParams = {
     name: string;
     website: string | null;
   };
+
+  interface CompanyValidator {
+    (company: CompanyParams): boolean;
+  }
 
   interface CompanyRepository {
     findCompanyByIdentifier(identifier: string): Promise<Company | null>;
@@ -64,7 +71,8 @@ intended. This is one of our most important principles, and several of the rules
   accessible for testing.
 - `explicit-member-accessibility`: a member should state that it is `public`, so that the intention is explicit.
 - `parameter-properties`, `consistent-type-imports`, `consistent-type-exports`, `no-import-type-side-effects`, and
-  `no-restricted-syntax` for enums and for relative `.js` imports in the TypeScript files of services: vanilla Node.
+  `no-restricted-syntax` for enums and for relative `.js` imports in the TypeScript files of services: one style
+  across repositories, and vanilla Node.
 - `array-type`, `consistent-type-assertions`, `naming-convention`, `eqeqeq`, `curly`,
   `block-scoped-var`, `no-var`, `prefer-const`, `prefer-arrow-callback`, `import-x/no-default-export`, and
   `no-restricted-properties` for `describe.only` and `it.only`: Google's guide and linter.
