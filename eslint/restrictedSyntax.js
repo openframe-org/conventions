@@ -35,20 +35,23 @@ export const general = [
     message: "`reduce` is harder to read than a loop or a map. Accumulate with a `for` loop, or map and then combine.",
   },
   { selector: `FunctionDeclaration[id.name=${PREPOSITION_ENDING}]`, message: PREPOSITION_MESSAGE },
-  { selector: `MethodDefinition[key.name=${PREPOSITION_ENDING}]`, message: PREPOSITION_MESSAGE },
+  { selector: `MethodDefinition[computed=false][key.name=${PREPOSITION_ENDING}]`, message: PREPOSITION_MESSAGE },
   {
     selector: `VariableDeclarator[id.name=${PREPOSITION_ENDING}][init.type=${FUNCTION_VALUE}]`,
     message: PREPOSITION_MESSAGE,
   },
   {
-    selector: `PropertyDefinition[key.name=${PREPOSITION_ENDING}][value.type=${FUNCTION_VALUE}]`,
+    selector: `PropertyDefinition[computed=false][key.name=${PREPOSITION_ENDING}][value.type=${FUNCTION_VALUE}]`,
     message: PREPOSITION_MESSAGE,
   },
 ];
 
 // Not applied to React applications, where the messages of a translation are functions named this way.
 export const objectFunctionNames = [
-  { selector: `Property[key.name=${PREPOSITION_ENDING}][value.type=${FUNCTION_VALUE}]`, message: PREPOSITION_MESSAGE },
+  {
+    selector: `Property[computed=false][key.name=${PREPOSITION_ENDING}][value.type=${FUNCTION_VALUE}]`,
+    message: PREPOSITION_MESSAGE,
+  },
 ];
 
 // The backend runs on vanilla Node, which does not rewrite `.js` import paths to `.ts`.

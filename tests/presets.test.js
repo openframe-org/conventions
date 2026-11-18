@@ -1,11 +1,16 @@
 import assert from "node:assert/strict";
 import { join } from "node:path";
+import process from "node:process";
 import { describe, test } from "node:test";
 
 import { ESLint } from "eslint";
 
 import { createLibraryConfiguration, createServiceConfiguration } from "../eslint/index.js";
 import { assertEslintVersionSupportsReact, createReactConfiguration } from "../eslint/react.js";
+
+// typescript-eslint assumes one lint run per process when `CI` is set, and keeps the program of the first run. These
+// tests lint the same files with several presets, so they need a program per run.
+process.env.TSESTREE_SINGLE_RUN = "false";
 
 const fixturesDirectory = join(import.meta.dirname, "fixtures");
 const presetParams = { tsconfigRootDir: fixturesDirectory, project: "./tsconfig.json" };
@@ -99,6 +104,22 @@ describe("rules that differ between presets", () => {
       const reports = await lintFixture({ configuration, fileName: "missingReturnType.ts" });
 
       assert.deepEqual(reports, name === "react" ? [] : ["@typescript-eslint/explicit-function-return-type"], name);
+    }
+  });
+
+  test("only React applications may leave out the return type of a function that returns a function", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "higherOrderFunction.ts" });
+
+      assert.deepEqual(reports, name === "react" ? [] : ["@typescript-eslint/explicit-function-return-type"], name);
+    }
+  });
+
+  test("a computed key is not the name of a function", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "computedKeys.ts" });
+
+      assert.deepEqual(reports, [], name);
     }
   });
 

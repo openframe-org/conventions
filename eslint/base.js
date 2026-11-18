@@ -113,7 +113,9 @@ export function createBaseConfiguration({
         "@typescript-eslint/no-shadow": "error",
         // Removing `async` from a function changes how it fails: it throws instead of returning a rejected promise.
         "@typescript-eslint/require-await": "off",
-        "@typescript-eslint/explicit-function-return-type": requireReturnTypes ? "error" : "off",
+        "@typescript-eslint/explicit-function-return-type": requireReturnTypes
+          ? ["error", { allowHigherOrderFunctions: false }]
+          : "off",
       },
     },
     {
