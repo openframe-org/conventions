@@ -107,6 +107,10 @@ npm run lint
 The tests lint the files in `tests/fixtures` with each preset: `clean.ts` must pass and `violations.ts` must be
 reported.
 
+## Publishing
+
+Publishing a GitHub release tagged `v<version>`, with the version of `package.json`, publishes the package to npm.
+
 ## License
 
 Proprietary. Nobody but Openframe ApS is licensed to use this repository; see [LICENSE](./LICENSE).
