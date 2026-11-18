@@ -28,9 +28,10 @@ changes listed below.
     company or transaction. Do not add a default merely to avoid updating call sites.
   - When `null` has a distinct meaning, preserve it. Remember that `value ?? fallback` replaces both `null` and
     `undefined`.
-  - A class member states its accessibility: write the `public` keyword.
-- All class members are publicly accessible. Do not use `private`, `protected` or JavaScript private fields. We keep
-  class members accessible for testing.
+  - All class members must be public and include the `public` keyword. This makes their accessibility explicit, in
+    keeping with our preference for declaring intentions.
+- Do not use `private`, `protected` or JavaScript private fields. We keep class members publicly accessible for
+  testing.
 - Use type aliases for data shapes, including parameter objects, and for unions, intersections and function types.
   Use an `interface` only for a contract that classes implement, never merely to describe a data object:
 
@@ -51,8 +52,8 @@ changes listed below.
 
 ## Lint rules we add
 
-- `no-restricted-syntax` for `private`, `protected` and `#private` members: we keep class members accessible for
-  testing.
+- `no-restricted-syntax` for `private`, `protected` and `#private` members: we keep class members publicly
+  accessible for testing.
 - `explicit-member-accessibility`: a member states that it is `public`, so that the intention is explicit.
 - `parameter-properties`, `consistent-type-imports`, `consistent-type-exports`, `no-import-type-side-effects`, and
   `no-restricted-syntax` for enums and for relative `.js` imports in the TypeScript files of services: vanilla Node.
