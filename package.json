@@ -1,6 +1,6 @@
 {
   "name": "@openframe-org/conventions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Openframe code conventions and style guide",
   "license": "UNLICENSED",
   "type": "module",

@@ -110,7 +110,8 @@ intended. This is one of our most important principles, and several of the rules
 
 ## Naming
 
-- **Never** abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names.
+- **Never** abbreviate, apart from the [allowed abbreviations](#allowed-abbreviations) below. `obj`, `i`, `arr` and
+  `mapDDFieldtoOC` are not acceptable names.
 - `camelCase` for TypeScript, `snake_case` for Python variables, functions and methods. `PascalCase` for classes,
   types and React components. `SCREAMING_SNAKE_CASE` for global constants.
 - A function name should start with a verb and say what the function returns or does: `getUserByEmail`,
@@ -124,6 +125,20 @@ intended. This is one of our most important principles, and several of the rules
 - A type parameter should carry no `Type` suffix: `Action`, not `ActionType`.
 - The type of a parameter object should be named `XxxParams`.
 - It is Openframe, never OpenFrame.
+
+### Allowed abbreviations
+
+An abbreviation is allowed in three cases only. Anything else should be spelled out.
+
+- **`ms`, for milliseconds.** It may be used in a name: `timeoutMs`, `openTimeoutMs`, `DAY_MS`. The abbreviation is
+  used universally, so spelling it out would make these names harder to recognize, not easier.
+- **The names a library uses itself.** Code that works with a library should follow that library's own convention:
+  Zod names the context of `superRefine` `ctx`, Vitest uses `Fn` when adding to fixtures, and Express names its
+  request and response `req` and `res`. Such an abbreviation should be used only for the thing the library gave
+  that name to, and nowhere else. `ctx` is fine for the context Zod hands to `superRefine`, including when that
+  value is passed on to another function, but it should never name anything outside of Zod.
+- **`app`, `db` and `tx`.** We allow ourselves these three everywhere. `app` comes from Express, `db` is understood
+  by everyone, and `tx` is what the transaction parameter is usually called in code that uses TypeORM.
 
 ## Types
 
