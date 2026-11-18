@@ -132,13 +132,14 @@ An abbreviation is allowed in three cases only. Anything else should be spelled 
 
 - **`ms`, for milliseconds.** It may be used in a name: `timeoutMs`, `openTimeoutMs`, `DAY_MS`. The abbreviation is
   used universally, so spelling it out would make these names harder to recognize, not easier.
-- **The names a library uses itself.** Code that works with a library should follow that library's own convention:
-  Zod names the context of `superRefine` `ctx`, Vitest uses `Fn` when adding to fixtures, and Express names its
-  request and response `req` and `res`. Such an abbreviation should be used only for the thing the library gave
-  that name to, and nowhere else. `ctx` is fine for the context Zod hands to `superRefine`, including when that
-  value is passed on to another function, but it should never name anything outside of Zod.
-- **`app`, `db` and `tx`.** We allow ourselves these three everywhere. `app` comes from Express, `db` is understood
-  by everyone, and `tx` is what the transaction parameter is usually called in code that uses TypeORM.
+- **Established abbreviations of a library.** Code may use an abbreviation that a library consistently uses for the
+  same concept, such as `ctx` for Zod's refinement context or `req` and `res` for the request and response of
+  Express. The abbreviation should keep that meaning, including when the value is passed on to another function,
+  and should not be used for anything else. A shortened name that only appears in an example does not establish a
+  convention.
+- **`app`, `db` and `tx`.** These may be used throughout our code, for an application, a database or database
+  connection, and a transaction. Like `ms`, `db` is used universally. `app` comes from Express, and `tx` is what a
+  transaction is usually called in code that uses TypeORM, but neither is restricted to that library.
 
 ## Types
 
