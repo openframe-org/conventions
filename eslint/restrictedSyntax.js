@@ -35,6 +35,7 @@ export const general = [
     message: "`reduce` is harder to read than a loop or a map. Accumulate with a `for` loop, or map and then combine.",
   },
   { selector: `FunctionDeclaration[id.name=${PREPOSITION_ENDING}]`, message: PREPOSITION_MESSAGE },
+  { selector: `FunctionExpression[id.name=${PREPOSITION_ENDING}]`, message: PREPOSITION_MESSAGE },
   { selector: `MethodDefinition[computed=false][key.name=${PREPOSITION_ENDING}]`, message: PREPOSITION_MESSAGE },
   {
     selector: `VariableDeclarator[id.name=${PREPOSITION_ENDING}][init.type=${FUNCTION_VALUE}]`,

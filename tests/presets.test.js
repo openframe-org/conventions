@@ -91,6 +91,14 @@ describe("rules that differ between presets", () => {
     }
   });
 
+  test("the name of a function expression is checked too", async () => {
+    for (const { name, configuration } of presets) {
+      const reports = await lintFixture({ configuration, fileName: "namedFunctionExpression.ts" });
+
+      assert.ok(hasViolation({ reports, violation: prepositionViolation }), name);
+    }
+  });
+
   test("a function name does not end in Until", async () => {
     for (const { name, configuration } of presets) {
       const reports = await lintFixture({ configuration, fileName: "untilName.ts" });
