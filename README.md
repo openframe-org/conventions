@@ -109,7 +109,12 @@ reported.
 
 ## Publishing
 
-Publishing a GitHub release tagged `v<version>`, with the version of `package.json`, publishes the package to npm.
+Publishing a stable GitHub release tagged `v<version>`, with the version of `package.json`, publishes the package to
+npm. A prerelease publishes nothing.
+
+The workflow holds no npm token. It relies on a trusted publisher configured on npm for `@openframe-org/conventions`,
+with this repository, the workflow `publish-to-npmjs.yml` and the environment `production`. Configure it before
+publishing the first release.
 
 ## License
 

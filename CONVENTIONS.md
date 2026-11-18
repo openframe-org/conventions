@@ -59,6 +59,7 @@ changes listed below.
 - A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
   implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
   in `docs/`, or is left out. A README or a document does not need to be terse, but it is still kept reasonably short.
+- When a decision is deliberate, the comment says so and why, so the next reader does not reopen it.
 - A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
   mistake.
 - Switching a lint rule off for a line needs a comment with the reason.
@@ -86,7 +87,7 @@ changes listed below.
 ## Functions and classes
 
 - Several identifiers travel as one named object: `new InvoiceLoader({ customerId, invoiceId })`, typed
-  `InvoiceLoaderParams`. No inline object types in a constructor signature.
+  `InvoiceLoaderParams`. No inline object types in a constructor signature, and avoid them in method signatures too.
 - A class file is named after the class, with its kind as a suffix: `invoice.service.ts`, `invoice.repository.ts`,
   `resourceNotFound.error.ts`.
 

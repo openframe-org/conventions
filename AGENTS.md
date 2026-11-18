@@ -28,6 +28,7 @@ This is one of the high priority rules.
 - A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
   implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
   in `docs/`, or is left out. A README or a document does not need to be terse, but it is still kept reasonably short.
+- When a decision is deliberate, the comment says so and why, so the next reader does not reopen it.
 - A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
   mistake.
 - Switching a lint rule off for a line needs a comment with the reason.
@@ -38,6 +39,7 @@ This is one of the high priority rules.
   for explicit approval before modifying a file.
 - Never commit, stage, push or run any other git action that changes something, unless asked to in the conversation.
 - A task number prefixes the branch (`dev-1234-<description>`) and the pull request title (`DEV-1234: <title>`).
+- Open a pull request as a draft.
 - After creating or updating a pull request, report the link and stop. Do not watch its checks or its comments
   unless asked, but do ask when watching would help.
 - Never run Playwright, or wait on a Playwright run, without explicit agreement. Treat the pending changes as one
