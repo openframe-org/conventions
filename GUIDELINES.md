@@ -75,19 +75,20 @@ another comment. An AI approval never replaces a person's.
 
 Our main method of development is [test-driven development](https://www.browserstack.com/guide/what-is-test-driven-development).
 
-- **Backend:** code comes with end-to-end, integration or unit tests. There is almost always an existing test close
-  to what you need. Write the test before the code where you can, to avoid confirmation bias.
-- **Frontend:** a large feature gets [Playwright](https://playwright.dev/) tests, and a reusable component goes into
-  [Storybook](https://storybook.js.org/). Where neither fits, test the change thoroughly by hand, with smoke tests
-  if needed.
+- **Backend:** code should come with end-to-end, integration or unit tests. There is almost always an existing test
+  close to what you need. Write the test before the code where you can, to avoid confirmation bias.
+- **Frontend:** a large feature should get [Playwright](https://playwright.dev/) tests, and a reusable component
+  should go into [Storybook](https://storybook.js.org/). Where neither fits, test the change thoroughly by hand, with
+  smoke tests if needed.
 - Assert what the system did, not what the code under test called: read the database again, render the message and
   check its body. Do not spy on the methods of the service under test.
-- Test a state machine backwards as well as forwards: every refused transition has a test next to the allowed ones.
-- Tests do not depend on execution order or on shared mutable state. Each test owns its setup and cleans up the
-  state it creates. Control time and randomness when they affect the result. An end-to-end journey whose steps
-  build on each other by design is the exception.
-- A fixture or helper is named by what it returns. A test over several cases lists them as named entries, each with
-  its expectation beside it.
+- Test a state machine backwards as well as forwards: every refused transition should have a test next to the allowed
+  ones.
+- Tests must not depend on execution order or on shared mutable state. Each test should own its setup and clean up the
+  state it creates. Control time and randomness when they affect the result. An end-to-end journey whose steps build
+  on each other by design is the exception.
+- A fixture or helper should be named by what it returns. A test over several cases should list them as named entries,
+  each with its expectation beside it.
 
 ## Writing code
 

@@ -25,12 +25,13 @@ Do not start exploratory searches, search the repository or read neighboring fil
 
 This is one of the high priority rules.
 
-- A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
-  implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
-  in `docs/`, or is left out. A README or a document does not need to be terse, but it is still kept reasonably short.
+- A comment should exist for one of three reasons only: the code deliberately does something a reader would not
+  expect, the implementation is very complex, or a complicated file or block needs a headline. Anything else should go
+  in a README or in `docs/`, or be left out. A README or a document does not need to be terse, but it should still be
+  kept reasonably short.
 - When a decision is deliberate, the comment should say so and explain why, so the next reader does not reopen it.
-- A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
-  mistake.
+- A comment should stand on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look
+  like a mistake.
 - Switching a lint rule off for a line needs a comment with the reason.
 
 ## Workflow

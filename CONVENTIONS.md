@@ -12,8 +12,9 @@ changes listed below.
 
 ## Declare the intention
 
-Code says what it means. Whoever owns a choice makes it explicitly, and nothing is left to a default, an omission or
-the reader's guess. This is one of our most important rules, and several of the rules below follow from it.
+Code should make its intentions explicit. Whoever owns a choice should make it explicitly. Defaults and omissions
+should be used only when their meaning is part of the contract, and readers should not have to guess what was
+intended. This is one of our most important principles, and several of the rules below follow from it.
 
 - Prefer required properties and parameters, so that callers make their choices explicitly. When a value belongs to
   the contract but may be absent, use `Value | null`: write `website: string | null`, not `website?: string`.
@@ -33,8 +34,8 @@ the reader's guess. This is one of our most important rules, and several of the 
 - All non-frontend code runs on vanilla Node, which strips the types from a file and compiles nothing:
   - No enums. Declare the values in an `as const` array and derive the union type from it.
   - No parameter properties: declare the field and assign it in the constructor.
-  - An import that is only used as a type is written `import type`.
-  - In a backend service, a relative import carries its `.ts` extension.
+  - An import that is only used as a type should be written `import type`.
+  - In a backend service, a relative import should carry its `.ts` extension.
 - What [Declare the intention](#declare-the-intention) asks for: `null` rather than an optional property, and the
   `public` keyword.
 - Do not use `private`, `protected` or JavaScript private fields. We keep class members publicly accessible for
@@ -61,7 +62,7 @@ the reader's guess. This is one of our most important rules, and several of the 
 
 - `no-restricted-syntax` for `private`, `protected` and `#private` members: we keep class members publicly
   accessible for testing.
-- `explicit-member-accessibility`: a member states that it is `public`, so that the intention is explicit.
+- `explicit-member-accessibility`: a member should state that it is `public`, so that the intention is explicit.
 - `parameter-properties`, `consistent-type-imports`, `consistent-type-exports`, `no-import-type-side-effects`, and
   `no-restricted-syntax` for enums and for relative `.js` imports in the TypeScript files of services: vanilla Node.
 - `array-type`, `consistent-type-assertions`, `naming-convention`, `eqeqeq`, `curly`,
@@ -69,17 +70,17 @@ the reader's guess. This is one of our most important rules, and several of the 
   `no-restricted-properties` for `describe.only` and `it.only`: Google's guide and linter.
 - `no-nested-ternary`, `no-else-return`, `prefer-template`, and `no-restricted-syntax` for `reduce`: they make code
   harder to read.
-- `explicit-function-return-type` in services and libraries: a function declares what it returns, so that a
-  change of it is a decision. Not in React applications, where almost every function is a component.
+- `explicit-function-return-type` in services and libraries: a function should declare what it returns, so that
+  changing it is a decision. Not in React applications, where almost every function is a component.
 - `no-shadow`: a shadowed name hides the outer one.
 - `no-non-null-assertion`: `!` is a cast.
 - `id-length`: no one-letter names.
-- `no-console`: output goes through a logger.
+- `no-console`: output should go through a logger.
 - `max-classes-per-file`: one class per file.
-- `import-x/no-duplicates`: a module is imported once per file.
-- `no-restricted-syntax` for function names ending in `Of`, `For`, `To` or `Until`: name what follows the
-  preposition, `sessionCookieForHeaders(headers)`, `setLoginLockedUntilDate(date)`. A React application may name a function of an object literal this way, as the
-  messages of a translation are.
+- `import-x/no-duplicates`: a module should be imported once per file.
+- `no-restricted-syntax` for function names ending in `Of`, `For`, `To` or `Until`: name what follows the preposition,
+  `sessionCookieForHeaders(headers)`, `setLoginLockedUntilDate(date)`. A React application may name a function of an
+  object literal this way, as the messages of a translation are.
 - `no-restricted-syntax` for `export *` and `export { x } from` in services and React applications: no barrel files.
 
 ## Preset rules we switch off
@@ -90,12 +91,13 @@ the reader's guess. This is one of our most important rules, and several of the 
 
 ## Comments
 
-- A comment exists for one of three reasons: the code deliberately does something a reader would not expect, the
-  implementation is very complex, or a complicated file or block needs a headline. Anything else goes in a README or
-  in `docs/`, or is left out. A README or a document does not need to be terse, but it is still kept reasonably short.
+- A comment should exist for one of three reasons only: the code deliberately does something a reader would not
+  expect, the implementation is very complex, or a complicated file or block needs a headline. Anything else should go
+  in a README or in `docs/`, or be left out. A README or a document does not need to be terse, but it should still be
+  kept reasonably short.
 - When a decision is deliberate, the comment should say so and explain why, so the next reader does not reopen it.
-- A comment stands on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look like a
-  mistake.
+- A comment should stand on its own: no ticket numbers, unless it is a `@TODO` or the decision would otherwise look
+  like a mistake.
 - Switching a lint rule off for a line needs a comment with the reason.
 
 ## Naming
@@ -103,42 +105,43 @@ the reader's guess. This is one of our most important rules, and several of the 
 - **Never** abbreviate. `obj`, `i`, `arr` and `mapDDFieldtoOC` are not acceptable names.
 - `camelCase` for TypeScript, `snake_case` for Python variables, functions and methods. `PascalCase` for classes,
   types and React components. `SCREAMING_SNAKE_CASE` for global constants.
-- A function name starts with a verb and says what the function returns or does: `getUserByEmail`,
+- A function name should start with a verb and say what the function returns or does: `getUserByEmail`,
   `assembleInvoiceLines`. Not a noun phrase, not a bare adjective.
-- `get` returns its result or throws; `find` may return `null`. `assemble` builds a value from parts, `create` makes
-  a new thing, `evaluate` decides, `validate` throws on a bad input.
-- A constant names what it is, not only its value: `ALLOWED_ROLES`, not `ALLOWED`.
-- A class name is descriptive on its own: `PaymentRequirements`, not `Requirements`.
-- A list of alternatives says so in its name: `rolesOrGroups`.
-- A type parameter carries no `Type` suffix: `Action`, not `ActionType`.
-- The type of a parameter object is named `XxxParams`.
+- Use `get` for a function that returns its result or throws, and `find` for one that may return `null`. Use
+  `assemble` for building a value from parts, `create` for making a new thing, `evaluate` for deciding and `validate`
+  for throwing on a bad input.
+- A constant should name what it is, not only its value: `ALLOWED_ROLES`, not `ALLOWED`.
+- A class name should be descriptive on its own: `PaymentRequirements`, not `Requirements`.
+- A list of alternatives should say so in its name: `rolesOrGroups`.
+- A type parameter should carry no `Type` suffix: `Action`, not `ActionType`.
+- The type of a parameter object should be named `XxxParams`.
 - It is Openframe, never OpenFrame.
 
 ## Types
 
 - Prefer a type guard (`isRole`, `isCurrency`) over a cast. In particular, validate values from outside the
   application, such as requests, environment variables and third-party responses, before treating them as application
-  types. A type guard checks the properties that establish the type, and a schema validator can do the same. A cast
-  performs no validation.
+  types. A type guard must check the properties that establish the type, and a schema validator can do the same. A
+  cast performs no validation.
 
 ## Functions and classes
 
-- Several identifiers travel as one named object: `new InvoiceLoader({ customerId, invoiceId })`, typed
+- Several identifiers should travel as one named object: `new InvoiceLoader({ customerId, invoiceId })`, typed
   `InvoiceLoaderParams`. No inline object types in a constructor signature, and avoid them in method signatures too.
-- A class file is named after the class, with its kind as a suffix: `invoice.service.ts`, `invoice.repository.ts`,
-  `resourceNotFound.error.ts`.
+- A class file should be named after the class, with its kind as a suffix: `invoice.service.ts`,
+  `invoice.repository.ts`, `resourceNotFound.error.ts`.
 
 ## Utility functions
 
 - Use utility functions sparingly, for small, repetitive operations. Put them in the folder's `utils.ts`. When
   utilities need separate modules, group them by concept or domain under `utils/`: `utils/secrets.ts`, not
   `utils/encryptData.ts`. Never create a file named after the single function it contains.
-- Larger behavior belongs in a service or repository, so that consumers can replace that dependency in tests. Choose
-  between the two by responsibility: repositories own data access.
+- Larger behavior should live in a service or repository, so that consumers can replace that dependency in tests.
+  Choose between the two by responsibility: repositories own data access.
 
 ## Errors
 
-- An error message is specific (`Company with ID xxx not found`, not `Entity not found`) and carries the right
+- An error message should be specific (`Company with ID xxx not found`, not `Entity not found`) and carry the right
   status code: that one is a 404, not a 500.
 - Catch an error only to recover, translate it at a boundary, or add useful context. Preserve its cause when wrapping
   it. Never silently discard a failure.
@@ -165,15 +168,15 @@ the reader's guess. This is one of our most important rules, and several of the 
 ## Keeping the code clean
 
 - No commented-out code. A `@TODO` that points at a specific commented-out fragment is fine.
-- No unused functions, classes, components or files. Code that is needed later belongs in a branch or in the git
+- No unused functions, classes, components or files. Code that is needed later should live in a branch or in the git
   history; failing that, mark it with `@TODO`.
 
 ## Git and dependencies
 
-- The task ID prefixes the branch (`dev-1234-<description>`) and the pull request title (`DEV-1234: <title>`). Jira
-  links a task to its branches this way.
+- The task ID should prefix the branch (`dev-1234-<description>`) and the pull request title (`DEV-1234: <title>`).
+  Jira links a task to its branches this way.
 - Pin exact dependency versions and run a plain `npm install`.
-- Before asking for a review, the lint and typecheck scripts of the repository pass.
+- Before asking for a review, the lint and typecheck scripts of the repository should pass.
 
 ## Other languages
 
