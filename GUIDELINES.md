@@ -92,6 +92,10 @@ Our main method of development is [test-driven development](https://www.browsers
 
 ## Writing code
 
+- **Use a library when one exists.** Do not reinvent the wheel: text editors, date functions, HTTP errors, WebSocket
+  handlers and other solved problems should come from a maintained library. The exception is a small need in a simple
+  codebase, where the library would be a heavy dependency for what it gives: a few lines of our own code are better
+  than a large package used for one function. When you skip a library deliberately, say so in the pull request.
 - **Keep nesting shallow.** Deeply nested code quickly becomes hard to follow.
 - **Split long functions.** Not into two hundred functions of two lines, but a function of a hundred lines can
   usually be split into parts that read better and can be tested on their own.
