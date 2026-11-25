@@ -119,4 +119,5 @@ directly. Selecting only `npm stage publish` does not permit this workflow to pu
 
 ## License
 
-Proprietary. Nobody but Openframe ApS is licensed to use this repository; see [LICENSE](./LICENSE).
+[PolyForm Noncommercial 1.0.0](./LICENSE): free to use, change and share for non-commercial purposes. Commercial
+use needs written permission from Openframe ApS.
