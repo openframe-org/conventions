@@ -1,9 +1,10 @@
 # Instructions for AI agents
 
 For an AI agent working in an Openframe repository. Read [CONVENTIONS.md](./CONVENTIONS.md) and
-[GUIDELINES.md](./GUIDELINES.md) before writing code. The repository's own instructions come on top of these, and win
-where they are more specific. A repository's own conventions and guidelines are in its `docs/CONVENTIONS.md` and
-`docs/GUIDELINES.md`.
+[GUIDELINES.md](./GUIDELINES.md) in every session, before writing or reviewing code: a pull request review, a proposed
+fix and a design question all count. The repository's own instructions come on top of these, and win where they are
+more specific. A repository's own conventions and guidelines are in its `docs/CONVENTIONS.md` and
+`docs/GUIDELINES.md`; read those in every session too.
 
 ## Be aware of usage
 
@@ -18,6 +19,8 @@ This is the most important rule, and it overrides the others. The people you wor
    approval. If the approved task plainly includes the action, announce it and proceed.
 4. Report context usage in absolute tokens: mention it at 200k, propose a stopping point at 300k, stop and insist at
    400k. At each threshold, recommend a specific next step.
+5. The conventions and guidelines are the exception to the first two rules. The shared documents and the two of the
+   repository are always approved: read them at the start of every session without asking.
 
 Do not start exploratory searches, search the repository or read neighboring files for context without approval.
 
